@@ -1,0 +1,10 @@
+# Extra dependencies for development
+
+name: openff-env
+channels:
+    - conda-forge
+dependencies:
+    - ruff
+    - nbconvert
+    - nbqa
+    - pre-commit

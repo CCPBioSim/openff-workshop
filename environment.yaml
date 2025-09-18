@@ -1,0 +1,7 @@
+---
+name: openff-env
+channels:
+    - conda-forge
+dependencies:
+    - jupyterlab
+    - openff-toolkit-examples
