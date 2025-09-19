@@ -1,5 +1,7 @@
 # 2025 CCPBioSim Training Week materials
 
+[![CI](https://github.com/openforcefield/ccpbiosim-2025/actions/workflows/ci.yaml/badge.svg)](https://github.com/openforcefield/ccpbiosim-2025/actions/workflows/ci.yaml)
+
 Presenters:
 
 * Danny Cole
