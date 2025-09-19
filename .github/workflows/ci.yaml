@@ -26,6 +26,7 @@ jobs:
 
     - name: Commit and push notebook.md files
       run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add notebooks-rendered/
