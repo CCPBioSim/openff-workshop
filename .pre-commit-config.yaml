@@ -11,7 +11,7 @@ repos:
         name: Clean notebooks
         language: system
         entry: bash
-        args: [-c, "make clean"]
+        args: [-c, "make clean-nb"]
 
 -   repo: local
     hooks:
@@ -19,4 +19,4 @@ repos:
         name: Format notebooks
         language: system
         entry: bash
-        args: [-c, "make format"]
+        args: [-c, "make format-nb"]
