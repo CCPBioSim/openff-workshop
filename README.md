@@ -16,7 +16,6 @@ Presenters:
 
 ### Half session - Wednesday Afternoon (1.00 PM - 3.00 PM?)
 
-* Talk?
 * Notebook: [Parameterisation, molecular dynamics, and basic trajectory analysis for a protein-ligand complex](notebooks/protein_ligand_complex_parameterisation_and_md.ipynb)
 
 ## Local installation
