@@ -19,7 +19,7 @@ jobs:
 
     - name: Run CI
       run: |
-        apt update && apt install git make
+        apt update && apt install -y git make
 
         make env-dev
         make run-nb-and-convert-to-md

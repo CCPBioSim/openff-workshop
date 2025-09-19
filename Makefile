@@ -6,13 +6,13 @@ CONDA_ENV_RUN   = conda run --no-capture-output --name $(ENV_NAME)
 
 env:
 	mamba create     --name $(ENV_NAME)
-	mamba env update --name $(ENV_NAME) --file environment.yaml -y
+	mamba env update --name $(ENV_NAME) --file environment.yaml
 
 env-dev:
 	mamba create     --name $(ENV_NAME)
-	mamba env update --name $(ENV_NAME) --file environment.yaml -y
+	mamba env update --name $(ENV_NAME) --file environment.yaml
 	# Now, add dev dependencies
-	mamba env update --name $(ENV_NAME) --file devtools/conda-envs/dev-env.yaml -y
+	mamba env update --name $(ENV_NAME) --file devtools/conda-envs/dev-env.yaml
 	$(CONDA_ENV_RUN) pre-commit install || true
 
 clean-nb:
