@@ -5,3 +5,7 @@ channels:
 dependencies:
     - jupyterlab
     - openff-toolkit-examples
+    - MDAnalysis
+    - prolif
+    - py3dmol # For 3D visualization of of interactions in prolif
+    - openbabel # For conversion of the pdbqt files to sdf (last exercise)
