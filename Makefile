@@ -23,3 +23,6 @@ format-nb:
 
 run-nb:
 	$(CONDA_ENV_RUN) find . -name "*.ipynb" -exec jupyter nbconvert --to notebook --execute --inplace {} \;
+
+run-nb-and-convert-to-md:
+	$(CONDA_ENV_RUN) find . -name "*.ipynb" -exec jupyter nbconvert --to markdown --execute --output-dir notebooks-rendered {} \;

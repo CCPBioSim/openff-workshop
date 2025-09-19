@@ -1,0 +1,35 @@
+name: CI
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push: { branches: [ "main" ] }
+  pull_request: { branches: [ "main" ] }
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    container: condaforge/mambaforge:latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run CI
+      run: |
+        apt update && apt install -y git make
+
+        make env-dev
+        make run-nb-and-convert-to-md
+
+    - name: Commit and push notebook.md files
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add notebooks-rendered/
+        git commit -m "Add generated notebook.md files [skip ci]" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
