@@ -25,14 +25,14 @@ sage = ForceField("openff-2.2.1.offxml")
 sage
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/amber_ff_ports/amber_ff_ports.py:8: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    /opt/conda/envs/openff-env/lib/python3.12/site-packages/smirnoff99frosst/smirnoff99frosst.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
       from pkg_resources import resource_filename
 
 
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f86f9242ba0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7ff27063e5a0>
 
 
 
@@ -54,7 +54,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f86f6b08950>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7ff218ff7da0>
 
 
 
@@ -690,7 +690,7 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 65.4 ms, sys: 7.53 ms, total: 72.9 ms
+    CPU times: user 58 ms, sys: 12.3 ms, total: 70.2 ms
     Wall time: 17.6 s
 
 
@@ -706,11 +706,11 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.39 s, sys: 38.7 ms, total: 1.43 s
-    Wall time: 1.34 s
+    CPU times: user 1.33 s, sys: 42.7 ms, total: 1.38 s
+    Wall time: 1.3 s
 
 
-    [16:24:33] WARNING: Proton(s) added/removed
+    [13:01:55] WARNING: Proton(s) added/removed
     
 
 
