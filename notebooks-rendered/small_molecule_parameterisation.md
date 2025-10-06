@@ -1,18 +1,39 @@
 # Parameterising Small Molecules with OpenFF
 
-TODO: Add outline with clickable sections and clear workflow, clearly acknowledge where/ who material was taken from (mainly previous workshop), add jupyter cheat sheet...
+This is the first of two jupyter notebooks on handling force fields using [Open Force Field's](https://openforcefield.org/) software, and subsequent molecular dynamics and analysis. This notebook describes the parameterisation of small molecules, while the second notebook (`protein_ligand_complex_parameterisation_and_md.ipynb`) will take you through parameterising a protein-ligand complex, running molecular dynamics, and performing some analysis of pose stability and interactions.
 
-## The plan:
+### Prerequisites
+
+ - Basic knowledge of Python
+ - Basic familiarity with molecular mechanics force fields and molecular dynamics simulations (see talk by Danny Cole)
+
+### The Plan
 
 | Action | Software|
 |--|--|
-| Load and inspect a force field | OpenFF Toolkit
-| Create a representation of your chemical system | OpenFF Toolkit
-| Parameterise your system and run a quick simulation | OpenFF Interchange, OpenMM
-| Rapidly assign partial charges with a graph neural network model | OpenFF Toolkit, OpenFF NAGL Models
+| [Load and inspect a force field](#loading_ff) | OpenFF Toolkit
+| [Create a representation of your chemical system](#topology) | OpenFF Toolkit
+| [Parameterise your system and run a quick simulation](#interchange) | OpenFF Interchange, OpenMM
+| [Rapidly assign partial charges with a graph neural network model](#gnn_charges) | OpenFF Toolkit, OpenFF NAGL Models
+| [Review what you've learnt](#summary) | 
+| [Check out other tutorials](#further_materials) | 
+ 
+### Jupyter Cheat Sheet
+
+- To run the currently highlighted cell and move focus to the next cell, hold <kbd>&#x21E7; Shift</kbd> and press <kbd>&#x23ce; Enter</kbd>;
+- To run the currently highlighted cell and keep focus in the same cell, hold <kbd>&#x21E7; Ctrl</kbd> and press <kbd>&#x23ce; Enter</kbd>;
+- To get help for a specific function, place the cursor within the function's brackets, hold <kbd>&#x21E7; Shift</kbd>, and press <kbd>&#x21E5; Tab</kbd>;
+
+### Acknowledgements
+
+Most of this material was adapted from the [2023 CCPBioSim Workshop Open Force Field Sessions](https://github.com/openforcefield/ccpbiosim-2023?tab=readme-ov-file) created by Matt Thompson and Jeff Wagner.
+
+### Maintainers
+ - Finlay Clark -- finlay.clark@newcastle.ac.uk (@fjclark)
 
 
 
+<a id="loading_ff"></a>
 ## 1. Force fields are specified in `.offxml` files and can be loaded with the `ForceField` class
 
 OpenFF's force fields use the The SMIRks Native Open Force Field (SMIRNOFF) [specification](https://openforcefield.github.io/standards/standards/smirnoff/) and are conventionally encoded in `.offxml` files. The spec fully describes the contents of a SMIRNOFF force field, how parameters should be applied, and several other important usage details. You could implement a SMIRNOFF engine in your own code, but conveniently the OpenFF Toolkit already provides this and a handful of utilities. Let's load up the latest OpenFF small molecule force field, OpenFF 2.2.1, and inspect its contents! This force field shares the code name "Sage" with all other force fields with the same major version number (2.x.x).
@@ -25,14 +46,10 @@ sage = ForceField("openff-2.2.1.offxml")
 sage
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/smirnoff99frosst/smirnoff99frosst.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-      from pkg_resources import resource_filename
 
 
 
-
-
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7ff27063e5a0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f9b6534a000>
 
 
 
@@ -54,7 +71,9 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7ff218ff7da0>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f9b65214230>
+
+
 
 
 
@@ -205,6 +224,7 @@ Another release from OpenFF may include some virtual site parameters with off-ce
 Anybody can write a SMIRNOFF force field! This workshop doesn't have time to cover force field _fitting_, but there are plenty of freely-available tools used today that can re-fit existing force fields or generate something new from the ground up. Once you've fit a new force field, a small Python package can distribute it in a way that the toolkit can [automatically load](https://docs.openforcefield.org/projects/toolkit/en/stable/faq.html#how-can-i-distribute-my-own-force-fields-in-smirnoff-format)!
 </details>
 
+<a id="topology"></a>
 ## 2. The `Topology` class represents a chemical system containing one or more `Molecule`s
 
 Now we've loaded our desired force field (OpenFF 2.2.1), we need to specify the chemical system we want to assign force field parameters to ("parameterise"). Our system will be represented by a `Topology`, which we will build from one or more `Molecule`s. 
@@ -223,9 +243,13 @@ molecule
     
 
 
+    /opt/conda/envs/openff-env/lib/python3.12/site-packages/nglview/__init__.py:12: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+      import pkg_resources
+
+
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_12_1.svg)
+![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_13_2.svg)
     
 
 
@@ -315,6 +339,7 @@ Molecule?
 
 We will cover creating a topology for a protein-ligand complex this afternoon.
 
+<a id="interchange"></a>
 ## 3. `Interchange` objects contain fully parameterised systems with all the information needed to start a simulation
 
 Now we're specified our force field and our chemical system using classes from the OpenFF Tools package (`ForceField`, `Molecule`, and `Topology`), and we want to apply our force field to our chemical topologies (parameterisation).
@@ -453,7 +478,7 @@ SVG(mol_with_atom_index(molecule))
 
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_39_0.svg)
+![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_40_0.svg)
     
 
 
@@ -536,17 +561,17 @@ interchange.positions, interchange.box, interchange.velocities
 
 
 
-    (<Quantity([[-0.16625724 -0.03479796  0.03784039]
-      [-0.02430486 -0.05201537 -0.00451867]
-      [ 0.05602012  0.05265773  0.00395499]
-      [ 0.19528189  0.0415208  -0.03596997]
-      [ 0.24343788 -0.06635438 -0.0792721 ]
-      [ 0.27953385  0.15166106 -0.02698393]
-      [-0.18045701  0.05218856  0.10358396]
-      [-0.22554747 -0.01299133 -0.05515606]
-      [-0.20445106 -0.12934557  0.08217001]
-      [ 0.00920345 -0.14767732 -0.04048902]
-      [ 0.01754047  0.14515378  0.04033941]], 'nanometer')>,
+    (<Quantity([[-0.16884651 -0.03204099  0.02797506]
+      [-0.02695262 -0.04551754 -0.01496804]
+      [ 0.05777792  0.05074697  0.01721889]
+      [ 0.19690544  0.03719656 -0.02507113]
+      [ 0.23595445 -0.06303954 -0.09039396]
+      [ 0.29175033  0.13419756  0.00498716]
+      [-0.1829386   0.05336654  0.09439656]
+      [-0.23077479 -0.01166554 -0.06346681]
+      [-0.20531354 -0.1285518   0.07293682]
+      [ 0.00522258 -0.13138426 -0.0706145 ]
+      [ 0.02721534  0.13669204  0.07249894]], 'nanometer')>,
      None,
      None)
 
@@ -647,6 +672,7 @@ visualise_traj(interchange.topology)
     ✏️ <b>Exercise:</b> Create an Interchange object for an MCL-1 ligand. Inspect the parameters assigned and run short simulation of the molecule in vacuum.
 </div>
 
+<a id="gnn_charges"></a>
 ## 4. Graph Neural Networks Allow Fast Assignment of Partial Charges
 
 You might notice that [Sage](https://github.com/openforcefield/openff-forcefields/blob/main/openforcefields/offxml/openff-2.2.1.offxml) doesn't contain tabulated charges for most atomic environments in the way it does for all other terms in the force field. Instead, it specifies:
@@ -690,8 +716,8 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 58 ms, sys: 12.3 ms, total: 70.2 ms
-    Wall time: 17.6 s
+    CPU times: user 56.1 ms, sys: 7.27 ms, total: 63.4 ms
+    Wall time: 19.8 s
 
 
 Now, let's try AshGC
@@ -706,11 +732,11 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.33 s, sys: 42.7 ms, total: 1.38 s
-    Wall time: 1.3 s
+    CPU times: user 1.27 s, sys: 39.1 ms, total: 1.3 s
+    Wall time: 1.23 s
 
 
-    [13:01:55] WARNING: Proton(s) added/removed
+    [09:17:22] WARNING: Proton(s) added/removed
     
 
 
@@ -738,8 +764,10 @@ interchange = sage.create_interchange(
 # Compare charges assigned with AM1-BCC and AshGC...
 ```
 
+<a id="summary"></a>
 ## 5. TODO: Add Summary
 
+<a id="further_materials"></a>
 ## 6. There's Lots More to OpenFF!
 
 A variety of example notebooks for OpenFF software are provided [here](https://docs.openforcefield.org/en/latest/examples.html). A few which are particularly relevant are:
