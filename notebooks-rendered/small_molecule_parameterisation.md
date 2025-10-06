@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f9b6534a000>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fa904aa4500>
 
 
 
@@ -71,7 +71,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f9b65214230>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7fa8ae7047a0>
 
 
 
@@ -716,7 +716,7 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 56.1 ms, sys: 7.27 ms, total: 63.4 ms
+    CPU times: user 61.3 ms, sys: 5.57 ms, total: 66.8 ms
     Wall time: 19.8 s
 
 
@@ -732,11 +732,11 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.27 s, sys: 39.1 ms, total: 1.3 s
-    Wall time: 1.23 s
+    CPU times: user 1.32 s, sys: 34.9 ms, total: 1.35 s
+    Wall time: 1.28 s
 
 
-    [09:17:22] WARNING: Proton(s) added/removed
+    [09:43:30] WARNING: Proton(s) added/removed
     
 
 
@@ -765,7 +765,12 @@ interchange = sage.create_interchange(
 ```
 
 <a id="summary"></a>
-## 5. TODO: Add Summary
+## 5. Conclusions
+
+* The `ForceField` class from the OpenFF Toolkit allows force fields to be easily loaded and inspected
+* The `Molecule` and `Topology` classes from the OpenFF Toolkit allow us to represent a chemical system, independently from the force field.
+* The `Interchange` class from OpenFF Interchange handles fully parameterised systems with all the information required to start a simulation. Exporting to the simluation engine of your choice is simple, and we can easily run a simulation with OpenMM without leaving the notebook!
+* Graph neural networks can provide fast and high-quality conformer-independent partial charges
 
 <a id="further_materials"></a>
 ## 6. There's Lots More to OpenFF!
