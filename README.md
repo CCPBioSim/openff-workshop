@@ -9,12 +9,12 @@ Presenters:
 
 ## Agenda
 
-### Half session - Wednesday Morning (10.30 AM - 12 PM?)
+### Half session - Wednesday Morning (11.30 AM - 1 PM)
 
 * Talk - Intro to OpenFF
 * Notebook: [Parameterising small molecules with OpenFF](notebooks/small_molecule_parameterisation.ipynb)
 
-### Half session - Wednesday Afternoon (1.00 PM - 3.00 PM?)
+### Half session - Wednesday Afternoon (2.00 PM - 3.00 PM)
 
 * Notebook: [Parameterisation, molecular dynamics, and basic trajectory analysis for a protein-ligand complex](notebooks/protein_ligand_complex_parameterisation_and_md.ipynb)
 

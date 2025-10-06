@@ -25,14 +25,14 @@ sage = ForceField("openff-2.2.1.offxml")
 sage
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/amber_ff_ports/amber_ff_ports.py:8: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    /opt/conda/envs/openff-env/lib/python3.12/site-packages/smirnoff99frosst/smirnoff99frosst.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
       from pkg_resources import resource_filename
 
 
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fe7407a15e0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7ff27063e5a0>
 
 
 
@@ -54,7 +54,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7fe6f0e52a20>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7ff218ff7da0>
 
 
 
@@ -209,13 +209,13 @@ Anybody can write a SMIRNOFF force field! This workshop doesn't have time to cov
 
 Now we've loaded our desired force field (OpenFF 2.2.1), we need to specify the chemical system we want to assign force field parameters to ("parameterise"). Our system will be represented by a `Topology`, which we will build from one or more `Molecule`s. 
 
-As a simple example, let's build a `Topology` containing a methanol molecule:
+As a simple example, let's build a `Topology` containing an small molecule with some features which illustrate how parameters are applied according to SMIRKS matches. We'll use the crotonate anion:
 
 
 ```python
 from openff.toolkit import Molecule, Topology
 
-molecule = Molecule.from_smiles("CO")
+molecule = Molecule.from_smiles("C/C=C/C(=O)[O-]")
 molecule
 ```
 
@@ -291,7 +291,7 @@ topology_with_water.molecule(0), topology_with_water.molecule(1), topology_with_
 
 
 
-    (Molecule with name '' and SMILES '[H][O][C]([H])([H])[H]',
+    (Molecule with name '' and SMILES '[H]/[C]([C](=[O])[O-])=[C](/[H])[C]([H])([H])[H]',
      Molecule with name '' and SMILES '[H][O][H]',
      Molecule with name '' and SMILES '[H][O][H]')
 
@@ -350,7 +350,7 @@ interchange
 
 
 
-    Interchange with 7 collections, non-periodic topology with 6 atoms.
+    Interchange with 7 collections, non-periodic topology with 11 atoms.
 
 
 
@@ -382,7 +382,7 @@ The `Interchange.topology` attribute carries an object of the same type provided
 
 
 
-    (6, 5, '[H][O][C]([H])([H])[H]')
+    (11, 10, '[H]/[C]([C](=[O])[O-])=[C](/[H])[C]([H])([H])[H]')
 
 
 
@@ -397,19 +397,19 @@ The `Interchange.collections` attribute carries a dictionary mapping handler nam
 
 
     [('Bonds',
-      Handler 'Bonds' with expression 'k/2*(r-length)**2', 5 mapping keys, and 3 potentials),
+      Handler 'Bonds' with expression 'k/2*(r-length)**2', 10 mapping keys, and 6 potentials),
      ('Constraints',
-      Handler 'Constraints' with expression '', 4 mapping keys, and 2 potentials),
+      Handler 'Constraints' with expression '', 5 mapping keys, and 2 potentials),
      ('Angles',
-      Handler 'Angles' with expression 'k/2*(theta-angle)**2', 7 mapping keys, and 3 potentials),
+      Handler 'Angles' with expression 'k/2*(theta-angle)**2', 15 mapping keys, and 5 potentials),
      ('ProperTorsions',
-      Handler 'ProperTorsions' with expression 'k*(1+cos(periodicity*theta-phase))', 3 mapping keys, and 1 potentials),
+      Handler 'ProperTorsions' with expression 'k*(1+cos(periodicity*theta-phase))', 19 mapping keys, and 7 potentials),
      ('ImproperTorsions',
-      Handler 'ImproperTorsions' with expression 'k*(1+cos(periodicity*theta-phase))', 0 mapping keys, and 0 potentials),
+      Handler 'ImproperTorsions' with expression 'k*(1+cos(periodicity*theta-phase))', 9 mapping keys, and 2 potentials),
      ('vdW',
-      Handler 'vdW' with expression '4*epsilon*((sigma/r)**12-(sigma/r)**6)', 6 mapping keys, and 4 potentials),
+      Handler 'vdW' with expression '4*epsilon*((sigma/r)**12-(sigma/r)**6)', 11 mapping keys, and 5 potentials),
      ('Electrostatics',
-      Handler 'Electrostatics' with expression 'coul', 6 mapping keys, and 6 potentials)]
+      Handler 'Electrostatics' with expression 'coul', 11 mapping keys, and 11 potentials)]
 
 
 
@@ -430,7 +430,7 @@ def mol_with_atom_index(molecule: Molecule, width: int = 300, height: int = 300)
 
     rdmol = molecule_copy.to_rdkit()
 
-    # Build labels like "C:0", "O:1", "H:2", ...
+    # Build labels like "C:0", "C:1", "C:2", ...
     atom_labels = {
         atom.GetIdx(): f"{atom.GetSymbol()}:{atom.GetIdx()}"
         for atom in rdmol.GetAtoms()
@@ -469,15 +469,20 @@ collection.key_map
 
 
 
-    {BondKey with atom indices (0, 1): PotentialKey associated with handler 'Bonds' with id '[#6:1]-[#8:2]',
-     BondKey with atom indices (0, 2): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
-     BondKey with atom indices (0, 3): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
-     BondKey with atom indices (0, 4): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
-     BondKey with atom indices (1, 5): PotentialKey associated with handler 'Bonds' with id '[#8:1]-[#1:2]'}
+    {BondKey with atom indices (0, 1): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#6X3:2]',
+     BondKey with atom indices (0, 6): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
+     BondKey with atom indices (0, 7): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
+     BondKey with atom indices (0, 8): PotentialKey associated with handler 'Bonds' with id '[#6X4:1]-[#1:2]',
+     BondKey with atom indices (1, 2): PotentialKey associated with handler 'Bonds' with id '[#6X3:1]=[#6X3:2]',
+     BondKey with atom indices (1, 9): PotentialKey associated with handler 'Bonds' with id '[#6X3:1]-[#1:2]',
+     BondKey with atom indices (2, 3): PotentialKey associated with handler 'Bonds' with id '[#6X3:1]-[#6X3:2]',
+     BondKey with atom indices (2, 10): PotentialKey associated with handler 'Bonds' with id '[#6X3:1]-[#1:2]',
+     BondKey with atom indices (3, 4): PotentialKey associated with handler 'Bonds' with id '[#6X3:1](~[#8X1])~[#8X1:2]',
+     BondKey with atom indices (3, 5): PotentialKey associated with handler 'Bonds' with id '[#6X3:1](~[#8X1])~[#8X1:2]'}
 
 
 
-We can see that the C-O bond (indices (0,1)) is associated with a potential key with the SMIRKS pattern `[#6:1]-[#8:2]` (specifying any carbon single-bonded to an oxygen).
+We can see that the C=C bond (indices (1,2)) is associated with a potential key with the SMIRKS pattern `[#6X3:1]=[#6X3:2]` (specifying any two carbons bonded to 3 atoms connected by a double bond). Note that the (1,0) C-C bond is matched by the SMRIKS `[#6X3:1]-[#6X3:2]`, which specifies the atoms in the same way, showing that the parameters have been assigned by directly using information about the bond. This contrasts to traditional atom typing approaches, where information about the bond would be implicitly encoded in the atom types used to assign the parameters. Another example of this "direct chemical perception" is the assignment of the carboxylate carbon-oxygen bond parameters, which only match (triply-connected carbon) - (singly-connnected oxygen) bonds when the carbon is bonded to another singly-connected oxygen.
 
 To see the actual parmeters specified for this bond, we can look up the `Potential` objects using the `PotentialKey`s.
 
@@ -488,22 +493,36 @@ for topology_key, potential_key in collection.key_map.items():
     print(f"{topology_key} -> {potential}")
 ```
 
-    atom_indices=(0, 1) bond_order=None -> parameters={'k': <Quantity(517.86177, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.42626649, 'angstrom')>} map_key=None
-    atom_indices=(0, 2) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
-    atom_indices=(0, 3) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
-    atom_indices=(0, 4) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
-    atom_indices=(1, 5) bond_order=None -> parameters={'k': <Quantity(1076.78291, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(0.975374805, 'angstrom')>} map_key=None
+    atom_indices=(0, 1) bond_order=None -> parameters={'k': <Quantity(478.593862, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.50990609, 'angstrom')>} map_key=None
+    atom_indices=(0, 6) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
+    atom_indices=(0, 7) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
+    atom_indices=(0, 8) bond_order=None -> parameters={'k': <Quantity(715.716502, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.09397889, 'angstrom')>} map_key=None
+    atom_indices=(1, 2) bond_order=None -> parameters={'k': <Quantity(904.136474, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.37332262, 'angstrom')>} map_key=None
+    atom_indices=(1, 9) bond_order=None -> parameters={'k': <Quantity(772.640205, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.0859499, 'angstrom')>} map_key=None
+    atom_indices=(2, 3) bond_order=None -> parameters={'k': <Quantity(534.900401, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.46781367, 'angstrom')>} map_key=None
+    atom_indices=(2, 10) bond_order=None -> parameters={'k': <Quantity(772.640205, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.0859499, 'angstrom')>} map_key=None
+    atom_indices=(3, 4) bond_order=None -> parameters={'k': <Quantity(1181.50884, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.26002549, 'angstrom')>} map_key=None
+    atom_indices=(3, 5) bond_order=None -> parameters={'k': <Quantity(1181.50884, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.26002549, 'angstrom')>} map_key=None
 
 
-So our C-O bond (indices (0,1)) has a force constant of 518 kcal mol<sup>-1</sup> Å<sup>-2</sup> and an equilibrium bond length of 1.43 Å. Note that the [`ForceField.label_molecules`](https://docs.openforcefield.org/projects/toolkit/en/stable/api/generated/openff.toolkit.typing.engines.smirnoff.ForceField.html#openff.toolkit.typing.engines.smirnoff.ForceField.label_molecules) method is also useful for checking which parameters will be applied to your molecule.
+So our C=C bond (indices (1,2)) has a force constant of 904 kcal mol<sup>-1</sup> Å<sup>-2</sup> and an equilibrium bond length of 1.37 Å. Note that the [`ForceField.label_molecules`](https://docs.openforcefield.org/projects/toolkit/en/stable/api/generated/openff.toolkit.typing.engines.smirnoff.ForceField.html#openff.toolkit.typing.engines.smirnoff.ForceField.label_molecules) method is also useful for checking which parameters will be applied to your molecule.
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> How many proper torsions do you expect to find in methanol? Check your answer by inspecting the <code>Interchange</code> object.
+    ✏️ <b>Exercise:</b> Have a look at the "Angles", "ProperTorsions", and "ImproperTorsions" applied. Where are the "ImproperTorsions" applied and why?
 </div>
 
 
 ```python
-# Inspect the proper torsions applied in the Interchange object...
+# Inspect the other bonded parameters...
+```
+
+<div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
+    ✏️ <b>Exercise:</b> Change the molecule from the anion to the neutral form by adding a hydrogen to the SMILES. How does this affect the bond strengths of the two carboxyl oxygens?
+</div>
+
+
+```python
+# Inspect the carboxyl oxygen bond parameters after making the molecule netural...
 
 ```
 
@@ -517,18 +536,60 @@ interchange.positions, interchange.box, interchange.velocities
 
 
 
-    (<Quantity([[-0.03510003 -0.00050979 -0.0018054 ]
-      [ 0.09661929 -0.03669733 -0.02597133]
-      [-0.05984567  0.00616493  0.10523734]
-      [-0.09828633 -0.08131057 -0.0462329 ]
-      [-0.06630706  0.09288997 -0.05017582]
-      [ 0.1629198   0.01946279  0.01894811]], 'nanometer')>,
+    (<Quantity([[-0.16625724 -0.03479796  0.03784039]
+      [-0.02430486 -0.05201537 -0.00451867]
+      [ 0.05602012  0.05265773  0.00395499]
+      [ 0.19528189  0.0415208  -0.03596997]
+      [ 0.24343788 -0.06635438 -0.0792721 ]
+      [ 0.27953385  0.15166106 -0.02698393]
+      [-0.18045701  0.05218856  0.10358396]
+      [-0.22554747 -0.01299133 -0.05515606]
+      [-0.20445106 -0.12934557  0.08217001]
+      [ 0.00920345 -0.14767732 -0.04048902]
+      [ 0.01754047  0.14515378  0.04033941]], 'nanometer')>,
      None,
      None)
 
 
 
-We can create an OpenMM `Simulation` object from the `Interchange`. Note that since the `Interchange` only contains methanol and has no box vectors, this corresponds to a vacuum simulation. This probably isn't what you want, but let's run it for fun anyway -- we'll discuss running a solvated complex this afternoon.
+We can create an OpenMM `Simulation` object from the `Interchange`. Note that since the `Interchange` only contains methanol and has no box vectors, this would correspond to a vacuum simulation. 
+
+Instead, we can use [`PACKMOL`](https://m3g.github.io/packmol/) to generate initial positions for a box of water and our solute. Let's use neutral crotonoic acid as our solute so we don't have to worry about neutralising the box.
+
+
+```python
+from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON, pack_box
+from openff.toolkit import unit
+
+water = Molecule.from_mapped_smiles("[H:2][O:1][H:3]")
+solute = Molecule.from_smiles("C/C=C/C(=O)[OH]") # neutral crotonoic acid
+
+# Naming the residue is not needed to parameterize the system or run the simulation, but makes visualization easier
+for atom in water.atoms:
+    atom.metadata["residue_name"] = "HOH"
+
+# Generate initial positions using OpenFF's PACKMOL interface
+topology = pack_box(
+    molecules=[solute, water],
+    number_of_copies=[1, 1000],
+    box_vectors=3.5 * RHOMBIC_DODECAHEDRON * unit.nanometer,
+)
+
+# Parameterise with Sage, which contains parameters for TIP3P water
+interchange = Interchange.from_smirnoff(force_field=sage, topology=topology)
+interchange.topology.n_atoms, interchange.box, interchange.positions.shape
+```
+
+
+
+
+    (3012,
+     <Quantity([[3.5        0.         0.        ]
+      [0.         3.5        0.        ]
+      [1.75       1.75       2.47487373]], 'nanometer')>,
+     (3012, 3))
+
+
 
 
 ```python
@@ -542,7 +603,7 @@ import nglview
 def run_openmm(
     interchange: Interchange,
     reporter_frequency: int = 1000,
-    trajectory_name: str = "preview.dcd",
+    trajectory_name: str = "small_mol_solvated.dcd",
 ):
     simulation = interchange.to_openmm_simulation(
         integrator=openmm.LangevinIntegrator(
@@ -556,11 +617,11 @@ def run_openmm(
     simulation.reporters.append(dcd_reporter)
 
     simulation.context.setVelocitiesToTemperature(300 * openmm.unit.kelvin)
-    simulation.runForClockTime(5 * openmm.unit.second)
+    simulation.runForClockTime(10 * openmm.unit.second)
 
 
 def visualise_traj(
-    topology: Topology, filename: str = "preview.dcd"
+    topology: Topology, filename: str = "small_mol_solvated.dcd"
 ) -> nglview.NGLWidget:
     """Visualise a trajectory using nglview."""
     traj = mdtraj.load(
@@ -568,10 +629,8 @@ def visualise_traj(
         top=mdtraj.Topology.from_openmm(topology.to_openmm()),
     )
 
-    # Superpose trajectory to the first frame
-    traj.superpose(traj, 0)
-
     view = nglview.show_mdtraj(traj)
+    view.add_representation("licorice", selection="water")
 
     return view
 
@@ -581,7 +640,7 @@ visualise_traj(interchange.topology)
 ```
 
 
-    NGLWidget(max_frame=16)
+    NGLWidget(max_frame=1)
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
@@ -612,6 +671,14 @@ ASH_GC_MODEL = "openff-gnn-am1bcc-0.1.0-rc.3.pt"
 molecule = Molecule("../structures/6o6f_ligand.sdf")
 ```
 
+
+```python
+molecule_ashgc.assign_partial_charges?
+```
+
+    Object `molecule_ashgc.assign_partial_charges` not found.
+
+
 First, let's assign charges the traditional way with AM1-BCC and check how long this takes...
 
 
@@ -623,8 +690,8 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 67.5 ms, sys: 2.59 ms, total: 70 ms
-    Wall time: 17.5 s
+    CPU times: user 58 ms, sys: 12.3 ms, total: 70.2 ms
+    Wall time: 17.6 s
 
 
 Now, let's try AshGC
@@ -639,12 +706,12 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    [14:24:58] WARNING: Proton(s) added/removed
+    CPU times: user 1.33 s, sys: 42.7 ms, total: 1.38 s
+    Wall time: 1.3 s
+
+
+    [13:01:55] WARNING: Proton(s) added/removed
     
-
-
-    CPU times: user 1.66 s, sys: 0 ns, total: 1.66 s
-    Wall time: 1.42 s
 
 
 Finally, let's create an `Interchange` with our AshGC charges, making sure to specify `charge_from_molecules` so that we don't replace them with `AM1BCC` charges:
