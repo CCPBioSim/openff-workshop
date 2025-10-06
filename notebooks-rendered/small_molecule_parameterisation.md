@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fa904aa4500>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f7a6f818260>
 
 
 
@@ -71,7 +71,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7fa8ae7047a0>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f7ab4d99940>
 
 
 
@@ -577,13 +577,13 @@ interchange.positions, interchange.box, interchange.velocities
 
 
 
-We can create an OpenMM `Simulation` object from the `Interchange`. Note that since the `Interchange` only contains methanol and has no box vectors, this would correspond to a vacuum simulation. 
+An `Interchange` handles all the information required to run a simulation and allows us to export input files for our engine of choice (OpenMM, GROMACS, LAMMPS, and Amber are all supported)! Let's run a simulation.
 
-Instead, we can use [`PACKMOL`](https://m3g.github.io/packmol/) to generate initial positions for a box of water and our solute. Let's use neutral crotonoic acid as our solute so we don't have to worry about neutralising the box.
+Note that since the `Interchange` only contains methanol and has no box vectors, this would correspond to a vacuum simulation.  We can use [`PACKMOL`](https://m3g.github.io/packmol/) to generate initial positions for a box of water and our solute. Let's use neutral crotonoic acid as our solute so we don't have to worry about neutralising the box.
 
 
 ```python
-from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON, pack_box
+from openff.interchange.components._packmol import UNIT_CUBE, pack_box
 from openff.toolkit import unit
 
 water = Molecule.from_mapped_smiles("[H:2][O:1][H:3]")
@@ -593,11 +593,14 @@ solute = Molecule.from_smiles("C/C=C/C(=O)[OH]") # neutral crotonoic acid
 for atom in water.atoms:
     atom.metadata["residue_name"] = "HOH"
 
-# Generate initial positions using OpenFF's PACKMOL interface
+# Generate initial positions using OpenFF's PACKMOL interface. Note that
+# using a cubic box is a simple but inefficient choice -- a rhombic
+# dodecahedron that provides the same solute separation has only ~ 71 % of
+# the volume.
 topology = pack_box(
     molecules=[solute, water],
     number_of_copies=[1, 1000],
-    box_vectors=3.5 * RHOMBIC_DODECAHEDRON * unit.nanometer,
+    box_vectors=3.5 * UNIT_CUBE * unit.nanometer,
 )
 
 # Parameterise with Sage, which contains parameters for TIP3P water
@@ -609,12 +612,38 @@ interchange.topology.n_atoms, interchange.box, interchange.positions.shape
 
 
     (3012,
-     <Quantity([[3.5        0.         0.        ]
-      [0.         3.5        0.        ]
-      [1.75       1.75       2.47487373]], 'nanometer')>,
+     <Quantity([[3.5 0.  0. ]
+      [0.  3.5 0. ]
+      [0.  0.  3.5]], 'nanometer')>,
      (3012, 3))
 
 
+
+At this point, we could easily export input files for our simulation engine of choice. For example, for Amber:
+
+
+```python
+interchange.to_amber(prefix="ligand")
+```
+
+    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/interchange/components/mdconfig.py:502: UserWarning: Ambiguous failure while processing constraints. Constraining h-bonds as a stopgap.
+      warnings.warn(
+    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/interchange/components/mdconfig.py:430: SwitchingFunctionNotImplementedWarning: A switching distance 8.0 angstrom was specified by the force field, but Amber does not implement a switching function. Using a hard cut-off instead. Non-bonded interactions will be affected.
+      warnings.warn(
+
+
+
+```python
+# Check the new files
+! ls
+```
+
+    ligand.inpcrd	       protein_ligand_complex_parameterisation_and_md.ipynb
+    ligand.prmtop	       small_molecule_parameterisation.ipynb
+    ligand_pointenergy.in
+
+
+Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange`.
 
 
 ```python
@@ -716,7 +745,7 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 61.3 ms, sys: 5.57 ms, total: 66.8 ms
+    CPU times: user 60.5 ms, sys: 3.34 ms, total: 63.8 ms
     Wall time: 19.8 s
 
 
@@ -732,11 +761,11 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.32 s, sys: 34.9 ms, total: 1.35 s
-    Wall time: 1.28 s
+    CPU times: user 1.28 s, sys: 42 ms, total: 1.32 s
+    Wall time: 1.25 s
 
 
-    [09:43:30] WARNING: Proton(s) added/removed
+    [10:00:26] WARNING: Proton(s) added/removed
     
 
 
