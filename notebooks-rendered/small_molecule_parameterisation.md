@@ -16,7 +16,7 @@ This is the first of two jupyter notebooks on handling force fields using [Open 
 | [Parameterise your system and run a quick simulation](#interchange) | OpenFF Interchange, OpenMM
 | [Rapidly assign partial charges with a graph neural network model](#gnn_charges) | OpenFF Toolkit, OpenFF NAGL Models
 | [Review what you've learnt](#summary) | 
-| [Check out other tutorials](#further_materials) | 
+| [Check out other OpenFF tutorials](#further_materials) | 
  
 ### Jupyter Cheat Sheet
 
@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f7a6f818260>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f51cd552e10>
 
 
 
@@ -71,7 +71,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f7ab4d99940>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f51750f8440>
 
 
 
@@ -745,8 +745,8 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 60.5 ms, sys: 3.34 ms, total: 63.8 ms
-    Wall time: 19.8 s
+    CPU times: user 58.6 ms, sys: 10.9 ms, total: 69.5 ms
+    Wall time: 19.9 s
 
 
 Now, let's try AshGC
@@ -761,11 +761,11 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.28 s, sys: 42 ms, total: 1.32 s
-    Wall time: 1.25 s
+    CPU times: user 1.3 s, sys: 37.2 ms, total: 1.34 s
+    Wall time: 1.27 s
 
 
-    [10:00:26] WARNING: Proton(s) added/removed
+    [10:22:35] WARNING: Proton(s) added/removed
     
 
 
