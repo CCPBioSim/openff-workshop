@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f51cd552e10>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f59527c01d0>
 
 
 
@@ -62,19 +62,17 @@ Each section of a force field is stored in memory within `ParameterHandler` obje
 print(sage.registered_parameter_handlers)
 
 vdw_handler = sage["vdW"]
-vdw_handler
+print(f"vdw_handler cutoff: {vdw_handler.cutoff}")
+print(f"vdw_handler combining rules: {vdw_handler.combining_rules}")
+print(f"vdw_handler scale14: {vdw_handler.scale14}")
+print(f"vdw_handler parameters: {vdw_handler.parameters}")
 ```
 
     ['Constraints', 'Bonds', 'Angles', 'ProperTorsions', 'ImproperTorsions', 'vdW', 'Electrostatics', 'LibraryCharges', 'ToolkitAM1BCC']
-
-
-
-
-
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f51750f8440>
-
-
-
+    vdw_handler cutoff: 9.0 angstrom
+    vdw_handler combining rules: Lorentz-Berthelot
+    vdw_handler scale14: 0.5
+    vdw_handler parameters: [<vdWType with smirks: [#1:1]  epsilon: 0.0157 kilocalorie / mole  id: n1  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]  epsilon: 0.01577948280971 kilocalorie / mole  id: n2  rmin_half: 1.48419980825 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]-[#7,#8,#9,#16,#17,#35]  epsilon: 0.01640924602775 kilocalorie / mole  id: n3  rmin_half: 1.449786411317 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n4  rmin_half: 1.287 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])(-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n5  rmin_half: 1.187 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]~[*+1,*+2]  epsilon: 0.0157 kilocalorie / mole  id: n6  rmin_half: 1.1 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]  epsilon: 0.01561134320353 kilocalorie / mole  id: n7  rmin_half: 1.443812569645 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01310699839698 kilocalorie / mole  id: n8  rmin_half: 1.377051329051 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3](~[#7,#8,#9,#16,#17,#35])~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01479744504464 kilocalorie / mole  id: n9  rmin_half: 1.370482808197 angstrom  >, <vdWType with smirks: [#1:1]-[#6X2]  epsilon: 0.015 kilocalorie / mole  id: n10  rmin_half: 1.459 angstrom  >, <vdWType with smirks: [#1:1]-[#7]  epsilon: 0.01409081474669 kilocalorie / mole  id: n11  rmin_half: 0.6192778454102 angstrom  >, <vdWType with smirks: [#1:1]-[#8]  epsilon: 1.232599966667e-05 kilocalorie / mole  id: n12  rmin_half: 0.2999999999997 angstrom  >, <vdWType with smirks: [#1:1]-[#16]  epsilon: 0.0157 kilocalorie / mole  id: n13  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#6:1]  epsilon: 0.0868793154488 kilocalorie / mole  id: n14  rmin_half: 1.953447017081 angstrom  >, <vdWType with smirks: [#6X2:1]  epsilon: 0.21 kilocalorie / mole  id: n15  rmin_half: 1.908 angstrom  >, <vdWType with smirks: [#6X4:1]  epsilon: 0.1088406109251 kilocalorie / mole  id: n16  rmin_half: 1.896698071741 angstrom  >, <vdWType with smirks: [#8:1]  epsilon: 0.2102061007896 kilocalorie / mole  id: n17  rmin_half: 1.706036917087 angstrom  >, <vdWType with smirks: [#8X2H0+0:1]  epsilon: 0.1684651402602 kilocalorie / mole  id: n18  rmin_half: 1.697783613804 angstrom  >, <vdWType with smirks: [#8X2H1+0:1]  epsilon: 0.2094735324129 kilocalorie / mole  id: n19  rmin_half: 1.682099169199 angstrom  >, <vdWType with smirks: [#7:1]  epsilon: 0.1676915150424 kilocalorie / mole  id: n20  rmin_half: 1.799798315098 angstrom  >, <vdWType with smirks: [#16:1]  epsilon: 0.25 kilocalorie / mole  id: n21  rmin_half: 2.0 angstrom  >, <vdWType with smirks: [#15:1]  epsilon: 0.2 kilocalorie / mole  id: n22  rmin_half: 2.1 angstrom  >, <vdWType with smirks: [#9:1]  epsilon: 0.061 kilocalorie / mole  id: n23  rmin_half: 1.75 angstrom  >, <vdWType with smirks: [#17:1]  epsilon: 0.2656001046527 kilocalorie / mole  id: n24  rmin_half: 1.85628721824 angstrom  >, <vdWType with smirks: [#35:1]  epsilon: 0.3218986365974 kilocalorie / mole  id: n25  rmin_half: 1.969806594135 angstrom  >, <vdWType with smirks: [#53:1]  epsilon: 0.4 kilocalorie / mole  id: n26  rmin_half: 2.35 angstrom  >, <vdWType with smirks: [#3+1:1]  epsilon: 0.0279896 kilocalorie / mole  id: n27  rmin_half: 1.025 angstrom  >, <vdWType with smirks: [#11+1:1]  epsilon: 0.0874393 kilocalorie / mole  id: n28  rmin_half: 1.369 angstrom  >, <vdWType with smirks: [#19+1:1]  epsilon: 0.1936829 kilocalorie / mole  id: n29  rmin_half: 1.705 angstrom  >, <vdWType with smirks: [#37+1:1]  epsilon: 0.3278219 kilocalorie / mole  id: n30  rmin_half: 1.813 angstrom  >, <vdWType with smirks: [#55+1:1]  epsilon: 0.4065394 kilocalorie / mole  id: n31  rmin_half: 1.976 angstrom  >, <vdWType with smirks: [#9X0-1:1]  epsilon: 0.003364 kilocalorie / mole  id: n32  rmin_half: 2.303 angstrom  >, <vdWType with smirks: [#17X0-1:1]  epsilon: 0.035591 kilocalorie / mole  id: n33  rmin_half: 2.513 angstrom  >, <vdWType with smirks: [#35X0-1:1]  epsilon: 0.0586554 kilocalorie / mole  id: n34  rmin_half: 2.608 angstrom  >, <vdWType with smirks: [#53X0-1:1]  epsilon: 0.0536816 kilocalorie / mole  id: n35  rmin_half: 2.86 angstrom  >, <vdWType with smirks: [#1]-[#8X2H2+0:1]-[#1]  epsilon: 0.1521 kilocalorie / mole  id: n-tip3p-O  sigma: 3.1507 angstrom  >, <vdWType with smirks: [#1:1]-[#8X2H2+0]-[#1]  epsilon: 0.0 kilocalorie / mole  id: n-tip3p-H  sigma: 1 angstrom  >, <vdWType with smirks: [#54:1]  epsilon: 0.561 kilocalorie / mole  id: n36  sigma: 4.363 angstrom  >]
 
 
 Each `ParameterHandler` in turn stores a list of parameters in its `.parameters` attribute, in addition to some information specific to its portion of the potential energy function:
@@ -189,7 +187,7 @@ Existing main-line OpenFF force fields are fit against TIP3P water, so use of ot
 
 ## ff14SB
 
-OpenFF, in collaboration with Dave Cerutti of the Amber community, created a port of [ff14SB](https://pubs.acs.org/doi/10.1021/acs.jctc.5b00255), a popular Amber protein force field. There are some small numberical differences with how improper torsions are evaluated, but all other terms reproduce a canonical Amber source to high accuracy. **This is the only protein force field currently in SMIRONOFF (`.offxml`) format** and therefore the current recommendation for use with proteins. Primarily for technical reasons, porting other Amber force fields is not planned.
+OpenFF, in collaboration with Dave Cerutti of the Amber community, created a port of [ff14SB](https://pubs.acs.org/doi/10.1021/acs.jctc.5b00255), a popular Amber protein force field. There are some small numerical differences with how improper torsions are evaluated, but all other terms reproduce a canonical Amber source to high accuracy. **This is the only protein force field currently in SMIRONOFF (`.offxml`) format** and therefore the current recommendation for use with proteins. Primarily for technical reasons, porting other Amber force fields is not planned.
 
 ## Non-main-line force fields
 
@@ -229,7 +227,7 @@ Anybody can write a SMIRNOFF force field! This workshop doesn't have time to cov
 
 Now we've loaded our desired force field (OpenFF 2.2.1), we need to specify the chemical system we want to assign force field parameters to ("parameterise"). Our system will be represented by a `Topology`, which we will build from one or more `Molecule`s. 
 
-As a simple example, let's build a `Topology` containing an small molecule with some features which illustrate how parameters are applied according to SMIRKS matches. We'll use the crotonate anion:
+As a simple example, let's build a `Topology` containing an small molecule with some features which illustrate how parameters are applied according to SMIRKS matches. We'll use the crotonate anion, but you could draw any molecule you like and convert it to a SMILES string using tools like ChemDraw and [MolView](https://molview.org/).
 
 
 ```python
@@ -249,7 +247,7 @@ molecule
 
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_13_2.svg)
+![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_12_2.svg)
     
 
 
@@ -322,7 +320,7 @@ topology_with_water.molecule(0), topology_with_water.molecule(1), topology_with_
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> Build a <code>Topology</code> containing an MCL-1 ligand. Create the <code>Molecule</code> from an SDF file  (take a look at the docstring of <code>Molecule</code> to see how this can be done). Also, see <a href="https://docs.openforcefield.org/projects/toolkit/en/stable/users/molecule_cookbook.html">Molecule cookbook</a> for all the ways to make a <code>Molecule</code>. TODO: Provide SDF?
+    ✏️ <b>Exercise:</b> Build a <code>Topology</code> containing an MCL-1 ligand. Create the <code>Molecule</code> from an SDF file  (take a look at the docstring of <code>Molecule</code> to see how this can be done). Also, see <a href="https://docs.openforcefield.org/projects/toolkit/en/stable/users/molecule_cookbook.html">Molecule cookbook</a> for all the ways to make a <code>Molecule</code>. The crystallographic MCL-1 ligand from PDB ID 6o6f is provided at <code>../structures/606f_ligand.sdf</code>.
 </div>
 
 
@@ -342,15 +340,21 @@ We will cover creating a topology for a protein-ligand complex this afternoon.
 <a id="interchange"></a>
 ## 3. `Interchange` objects contain fully parameterised systems with all the information needed to start a simulation
 
-Now we're specified our force field and our chemical system using classes from the OpenFF Tools package (`ForceField`, `Molecule`, and `Topology`), and we want to apply our force field to our chemical topologies (parameterisation).
+Now we've specified our force field and our chemical system using classes from the OpenFF Tools package (`ForceField`, `Molecule`, and `Topology`), and we want to apply our force field to our chemical topologies (parameterisation).
 
 To do this, we'll use the `Interchange` class from the OpenFF Interchange package, which stores a fully-parameterised molecular system and provides methods to write out simulation-ready input files for a number of software packages. They key objective of Interchange is to provide an intermediate inspectable state after parameterisation and before conversion to an engine-specific format. For most users, an `Interchange` forms the bridge between the OpenFF ecosystem and their simulation software of choice. The current focus is applying SMIRNOFF force fields to chemical topologies and exporting the result to engines preferred by our users. In order of stability, OpenMM, GROMACS, Amber, and LAMMPS are supported. Future development may include support for CHARMM and other engines.
 
-Below is a summary of how data flows through a workflow utilizing OpenFF tools, including where Interchange sits in the flow.
+Below is a summary of how data flows through a workflow utilising OpenFF tools, including where Interchange sits in the flow.
 
-TODO: Fix this image (tookit cut off etc)
+<img src="../images/openff_flowchart.png" alt="Description of image" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto;" />
 
-<img src="../images/interchange_flowchart.jpg" alt="Description of image" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto;" />
+First, let's recreate our `molecule` and `topology` in case you overwrote them during the previous exercises:
+
+
+```python
+molecule = Molecule.from_smiles("C/C=C/C(=O)[O-]")
+topology = molecule.to_topology()
+```
 
 An `Interchange` is most commonly constructed via the `Interchange.from_smirnoff()` class method. This method takes a SMIRNOFF force field and applies it to a molecular topology. 
 
@@ -478,7 +482,7 @@ SVG(mol_with_atom_index(molecule))
 
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_40_0.svg)
+![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_41_0.svg)
     
 
 
@@ -561,25 +565,13 @@ interchange.positions, interchange.box, interchange.velocities
 
 
 
-    (<Quantity([[-0.16884651 -0.03204099  0.02797506]
-      [-0.02695262 -0.04551754 -0.01496804]
-      [ 0.05777792  0.05074697  0.01721889]
-      [ 0.19690544  0.03719656 -0.02507113]
-      [ 0.23595445 -0.06303954 -0.09039396]
-      [ 0.29175033  0.13419756  0.00498716]
-      [-0.1829386   0.05336654  0.09439656]
-      [-0.23077479 -0.01166554 -0.06346681]
-      [-0.20531354 -0.1285518   0.07293682]
-      [ 0.00522258 -0.13138426 -0.0706145 ]
-      [ 0.02721534  0.13669204  0.07249894]], 'nanometer')>,
-     None,
-     None)
+    (None, None, None)
 
 
 
 An `Interchange` handles all the information required to run a simulation and allows us to export input files for our engine of choice (OpenMM, GROMACS, LAMMPS, and Amber are all supported)! Let's run a simulation.
 
-Note that since the `Interchange` only contains methanol and has no box vectors, this would correspond to a vacuum simulation.  We can use [`PACKMOL`](https://m3g.github.io/packmol/) to generate initial positions for a box of water and our solute. Let's use neutral crotonoic acid as our solute so we don't have to worry about neutralising the box.
+Note that since the `Interchange` only contains crontonate and has no box vectors, this would correspond to a vacuum simulation.  We can use [`PACKMOL`](https://m3g.github.io/packmol/) to generate initial positions for a box of water and our solute. Let's use neutral crotonoic acid as our solute so we don't have to worry about neutralising the box.
 
 
 ```python
@@ -643,7 +635,7 @@ interchange.to_amber(prefix="ligand")
     ligand_pointenergy.in
 
 
-Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange`.
+Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange` and run for a specified wall clock time using `runForClockTime` (the simluation time will depend on how quickly it runs on your machine). We keep the volume (V), number of particles (N), and average temperature (T) (using the LangevinMiddleIntegrator) constant and the simulation corresponds to the NVT ensemble.
 
 
 ```python
@@ -660,7 +652,7 @@ def run_openmm(
     trajectory_name: str = "small_mol_solvated.dcd",
 ):
     simulation = interchange.to_openmm_simulation(
-        integrator=openmm.LangevinIntegrator(
+        integrator=openmm.LangevinMiddleIntegrator(
             300 * openmm.unit.kelvin,
             1 / openmm.unit.picosecond,
             0.002 * openmm.unit.picoseconds,
@@ -698,7 +690,7 @@ visualise_traj(interchange.topology)
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> Create an Interchange object for an MCL-1 ligand. Inspect the parameters assigned and run short simulation of the molecule in vacuum.
+    ✏️ <b>Exercise:</b> (Only complete this if you have time -- otherwise proceed to section 4.) Create an Interchange object for an MCL-1 ligand. Inspect the parameters assigned and run short simulation of the molecule in vacuum.
 </div>
 
 <a id="gnn_charges"></a>
@@ -721,6 +713,11 @@ Methods which assign partial charges using graph neural networks offer rapid ass
 from openff.toolkit import Molecule, ForceField
 from openff.toolkit.utils.nagl_wrapper import NAGLToolkitWrapper
 
+# Disable RDKit warnings to avoid misleading NAGL warnings
+# (see https://github.com/openforcefield/openff-nagl/issues/198)
+from rdkit import RDLogger
+RDLogger.DisableLog('rdApp.*')   
+
 # OpenFF NAGL store models as PyTorch files.
 ASH_GC_MODEL = "openff-gnn-am1bcc-0.1.0-rc.3.pt"
 molecule = Molecule("../structures/6o6f_ligand.sdf")
@@ -728,11 +725,8 @@ molecule = Molecule("../structures/6o6f_ligand.sdf")
 
 
 ```python
-molecule_ashgc.assign_partial_charges?
+molecule.assign_partial_charges?
 ```
-
-    Object `molecule_ashgc.assign_partial_charges` not found.
-
 
 First, let's assign charges the traditional way with AM1-BCC and check how long this takes...
 
@@ -745,7 +739,7 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 58.6 ms, sys: 10.9 ms, total: 69.5 ms
+    CPU times: user 64.2 ms, sys: 2.62 ms, total: 66.8 ms
     Wall time: 19.9 s
 
 
@@ -761,12 +755,8 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.3 s, sys: 37.2 ms, total: 1.34 s
-    Wall time: 1.27 s
-
-
-    [10:22:35] WARNING: Proton(s) added/removed
-    
+    CPU times: user 1.29 s, sys: 38.3 ms, total: 1.33 s
+    Wall time: 1.26 s
 
 
 Finally, let's create an `Interchange` with our AshGC charges, making sure to specify `charge_from_molecules` so that we don't replace them with `AM1BCC` charges:
@@ -785,7 +775,7 @@ interchange = sage.create_interchange(
 ```
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> Compare the charges obtained with AM1-BCC and AshGC by looking at the <code>Molecule.partial_charges</code> attribute. How big are these differences on average? What is the largest difference? Which atom are these on?
+    ✏️ <b>Exercise:</b> Compare the charges obtained with AM1-BCC and AshGC by looking at the <code>Molecule.partial_charges</code> attribute. How big are these differences on average? What is the largest difference? Which atom are these on? The <code>np.max</code> function may be useful.
 </div>
 
 
