@@ -39,4 +39,6 @@ $ mamba activate openff-env
 
 ## Acknowledgements
 
-Most of this material is adapted from [the 2023 CCPBioSim training week workshop](https://github.com/openforcefield/ccpbiosim-2023).
+Most of the material for the notebook [Parameterising small molecules with OpenFF](notebooks/small_molecule_parameterisation.ipynb) was adapted from the [2023 CCPBioSim Workshop Open Force Field Sessions](https://github.com/openforcefield/ccpbiosim-2023?) created by Matt Thompson and Jeff Wagner.
+
+Most of the material for the notebook [Parameterisation, molecular dynamics, and basic trajectory analysis for a protein-ligand complex](notebooks/protein_ligand_complex_parameterisation_and_md.ipynb) was adapted from the OpenFF [toolkit showcase](https://docs.openforcefield.org/en/latest/examples/openforcefield/openff-toolkit/toolkit_showcase/toolkit_showcase.html) and the [ProLIF Ligand-protein MD tutorial](https://prolif.readthedocs.io/en/latest/notebooks/md-ligand-protein.html#ligand-protein-md).
