@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f59527c01d0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fa748d4edb0>
 
 
 
@@ -632,10 +632,10 @@ interchange.to_amber(prefix="ligand")
 
     ligand.inpcrd	       protein_ligand_complex_parameterisation_and_md.ipynb
     ligand.prmtop	       small_molecule_parameterisation.ipynb
-    ligand_pointenergy.in
+    ligand_pointenergy.in  trajectory_gpu.dcd
 
 
-Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange` and run for a specified wall clock time using `runForClockTime` (the simluation time will depend on how quickly it runs on your machine). We keep the volume (V), number of particles (N), and average temperature (T) (using the LangevinMiddleIntegrator) constant and the simulation corresponds to the NVT ensemble.
+Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange` and run for a specified wall clock time using `runForClockTime` (the simluation time will depend on how quickly it runs on your machine). We keep the volume ($V$), number of particles ($N$), and average temperature ($T$) (using the LangevinMiddleIntegrator) constant and the simulation corresponds to the $NVT$ ensemble.
 
 
 ```python
@@ -739,8 +739,8 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 64.2 ms, sys: 2.62 ms, total: 66.8 ms
-    Wall time: 19.9 s
+    CPU times: user 57.2 ms, sys: 4.62 ms, total: 61.8 ms
+    Wall time: 19.8 s
 
 
 Now, let's try AshGC
@@ -755,8 +755,8 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.29 s, sys: 38.3 ms, total: 1.33 s
-    Wall time: 1.26 s
+    CPU times: user 1.24 s, sys: 38.1 ms, total: 1.28 s
+    Wall time: 1.21 s
 
 
 Finally, let's create an `Interchange` with our AshGC charges, making sure to specify `charge_from_molecules` so that we don't replace them with `AM1BCC` charges:
@@ -764,7 +764,7 @@ Finally, let's create an `Interchange` with our AshGC charges, making sure to sp
 
 ```python
 # normally when we call `ForceField.create_interchange` or `ForceField.create_openmm_system`, the toolkit will call
-# AmberTools or OEChem to assign partial charges, since that's what's in the force field file. A future OpenFF release
+# AMBERTools or OEChem to assign partial charges, since that's what's in the force field file. A future OpenFF release
 # which uses NAGL for charge assignment will encode this instruction in the force field file itself, but until that we
 # can use the `charge_from_molecules` argument to tell it to use the charges that we just assigned# for more, see:
 # https://docs.openforcefield.org/projects/toolkit/en/stable/api/generated/openff.toolkit.typing.engines.smirnoff.ForceField.html#openff.toolkit.typing.engines.smirnoff.ForceField.create_openmm_system
