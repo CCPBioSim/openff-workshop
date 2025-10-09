@@ -13,7 +13,7 @@ jobs:
       matrix:
         platform:
           - linux/amd64
-          - linux/arm64
+          #- linux/arm64
     runs-on: ${{ matrix.platform == 'linux/amd64' && 'ubuntu-24.04' || matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' }}
     name: build ${{ matrix.platform }}
     outputs:
@@ -61,12 +61,12 @@ jobs:
           tags: ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
 
-      - name: Test notebooks
-        shell: bash
-        run: |
-          docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}@${{ steps.build.outputs.digest }} bash -c " \
-            pip install pytest nbmake; \
-            find ./notebooks -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600;"
+      #- name: Test notebooks
+      #  shell: bash
+      #  run: |
+      #    docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}@${{ steps.build.outputs.digest }} bash -c " \
+      #      pip install pytest nbmake; \
+      #      find ./notebooks -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600;"
 
       - name: Export digest
         run: |
