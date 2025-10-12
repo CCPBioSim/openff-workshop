@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fa748d4edb0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fcfc6bd7aa0>
 
 
 
@@ -648,7 +648,7 @@ import nglview
 
 def run_openmm(
     interchange: Interchange,
-    reporter_frequency: int = 1000,
+    reporter_frequency: int = 50, # Decrease this to save more frames!
     trajectory_name: str = "small_mol_solvated.dcd",
 ):
     simulation = interchange.to_openmm_simulation(
@@ -686,7 +686,7 @@ visualise_traj(interchange.topology)
 ```
 
 
-    NGLWidget(max_frame=1)
+    NGLWidget(max_frame=53)
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
@@ -705,7 +705,7 @@ which means that partial charges will be calculated using the common AM1-BCC met
 Methods which assign partial charges using graph neural networks offer rapid assignment with better scaling. They also offer the possibility of going beyond traditionally affordable QM levels of theory by training to quickly reproduce charges from expensive calculations. For example, [EspalomaCharge](https://pubs.acs.org/doi/full/10.1021/acs.jpca.4c01287) is fit to AM1-BCC charges and offers 𝒪(N<sup>2</sup>) scaling, while [Adams et al.](https://chemrxiv.org/engage/chemrxiv/article-details/6839c94c3ba0887c33d2cd8e) trained models to reproduce atoms-in-molecules charges and electrostatic potentials obtained at a high level of theory. Here, we'll use OpenFF's [AshGC](https://zenodo.org/records/15770227/files/AshGC_methods_2025-06-30.pdf?download=1) model, which is trained to reproduce AM1-BCC charges.
 
 <div class="alert alert-warning" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-    ⚠️ OpenFF 2.2.1 has not been explicitly trained and validated with AshGC charges. However, the 2.3.0 release will be, as is expected imminently. AshGC charges will be used as default and will be specified in the <code>.offxml</code> file, so there will be no need to call <code>Molecule.assign_partial_charges</code> as shown below.
+    ⚠️ OpenFF 2.2.1 has not been explicitly trained and validated with AshGC charges. However, the 2.3.0 release will be, and is expected imminently. AshGC charges will be used as default and will be specified in the <code>.offxml</code> file, so there will be no need to call <code>Molecule.assign_partial_charges</code> as shown below.
 </div>
 
 
@@ -739,7 +739,7 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 57.2 ms, sys: 4.62 ms, total: 61.8 ms
+    CPU times: user 59.7 ms, sys: 2.68 ms, total: 62.4 ms
     Wall time: 19.8 s
 
 
@@ -755,8 +755,8 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.24 s, sys: 38.1 ms, total: 1.28 s
-    Wall time: 1.21 s
+    CPU times: user 1.3 s, sys: 33.5 ms, total: 1.33 s
+    Wall time: 1.26 s
 
 
 Finally, let's create an `Interchange` with our AshGC charges, making sure to specify `charge_from_molecules` so that we don't replace them with `AM1BCC` charges:
