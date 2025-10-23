@@ -2,25 +2,26 @@
 
 [![CI](https://github.com/openforcefield/ccpbiosim-2025/actions/workflows/ci.yaml/badge.svg)](https://github.com/openforcefield/ccpbiosim-2025/actions/workflows/ci.yaml)
 
+These tutorials were delivered at the 2025 CCPBioSim training week, but are suitable for self-guided learning.
+
 Presenters:
 
 * Danny Cole
 * Finlay Clark
 
-## Agenda
+## Materials
 
-### Half session - Wednesday Morning (11.30 AM - 1 PM)
+We recommend you view the materials in the following order:
 
-* Talk - Intro to OpenFF
+* Talk: [Intro to OpenFF](talk-cole-openFFintro.pdf)
 * Notebook: [Parameterising small molecules with OpenFF](notebooks/small_molecule_parameterisation.ipynb)
-
-### Half session - Wednesday Afternoon (2.00 PM - 3.00 PM)
-
 * Notebook: [Parameterisation, molecular dynamics, and basic trajectory analysis for a protein-ligand complex](notebooks/protein_ligand_complex_parameterisation_and_md.ipynb)
+
+Answers to most exercises are given in the [notebooks_with_solutions directory](notebooks_with_solutions).
 
 ## Local installation
 
-If there are any issues with the provided cloud-hosted JupyterHub instance, or to use these notebooks outside of the workshop hours, use a Python distribution (we recommend [Mambaforge](https://docs.openforcefield.org/en/latest/install.html#quick-install-guide)) and create an environment from the provided YAML file:
+To use these notebooks on your local machine, we recommend using [mamba](https://docs.openforcefield.org/en/latest/install.html#quick-install-guide) to create an environment from the provided YAML file:
 
 ```shell
 $ mamba env create --file environment.yaml
