@@ -19,6 +19,10 @@ jobs:
 
     - name: Run CI
       run: |
+        # Fail fast: any command that exits non-zero will stop the job
+        set -euo pipefail
+        IFS=$'\n\t'
+
         apt update && apt install -y git make
 
         make env-dev
