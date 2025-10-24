@@ -29,4 +29,6 @@ run-nb:
 	$(CONDA_ENV_RUN) find notebooks_with_solutions -name "*.ipynb" -exec jupyter nbconvert --to notebook --execute --inplace {} \;
 
 run-nb-and-convert-to-md:
-	$(CONDA_ENV_RUN) find notebooks_with_solutions -name "*.ipynb" -exec jupyter nbconvert --to markdown --execute --output-dir notebooks-rendered {} \;
+	$(CONDA_ENV_RUN) python devtools/scripts/execute_and_convert_notebooks.py \
+		--input-dir notebooks_with_solutions --output-dir notebooks-rendered \
+		--skip-tag ci_skip

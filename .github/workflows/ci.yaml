@@ -29,8 +29,8 @@ jobs:
         apt update && apt install -y git make
 
         make env-dev
-        make run-nb-and-convert-to-md
         make create-student-nb
+        make run-nb-and-convert-to-md
 
     - name: Commit and push notebook.md files
       run: |
