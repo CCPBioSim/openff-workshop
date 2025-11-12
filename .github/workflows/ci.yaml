@@ -1,0 +1,45 @@
+name: CI
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push: { branches: [ "main" ] }
+  pull_request: { branches: [ "main" ] }
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    container: condaforge/mambaforge:latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run CI
+      # Ensure the step runs under bash so `pipefail` is supported in the shell flags
+      # The `{0}` placeholder is replaced by the step commands by GitHub Actions.
+      shell: bash -eo pipefail {0}
+      run: |
+        # Fail fast: any command that exits non-zero will stop the job
+        set -euo pipefail
+        IFS=$'\n\t'
+
+        apt update && apt install -y git make
+
+        make env-dev
+        make create-student-nb
+        make run-nb-and-convert-to-md
+
+    - name: Commit and push notebook.md files
+      run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add notebooks-rendered/
+        git add notebooks/
+        git commit -m "Add generated notebook.md and answerless notebook files [skip ci]" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

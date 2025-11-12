@@ -36,7 +36,7 @@ Most of this material was adapted from the [2023 CCPBioSim Workshop Open Force F
 <a id="loading_ff"></a>
 ## 1. Force fields are specified in `.offxml` files and can be loaded with the `ForceField` class
 
-OpenFF's force fields use the The SMIRks Native Open Force Field (SMIRNOFF) [specification](https://openforcefield.github.io/standards/standards/smirnoff/) and are conventionally encoded in `.offxml` files. The spec fully describes the contents of a SMIRNOFF force field, how parameters should be applied, and several other important usage details. You could implement a SMIRNOFF engine in your own code, but conveniently the OpenFF Toolkit already provides this and a handful of utilities. Let's load up the latest OpenFF small molecule force field, OpenFF 2.2.1, and inspect its contents! This force field shares the code name "Sage" with all other force fields with the same major version number (2.x.x).
+OpenFF's force fields use the The SMIRKS Native Open Force Field (SMIRNOFF) [specification](https://openforcefield.github.io/standards/standards/smirnoff/) and are conventionally encoded in `.offxml` files. The spec fully describes the contents of a SMIRNOFF force field, how parameters should be applied, and several other important usage details. You could implement a SMIRNOFF engine in your own code, but conveniently the OpenFF Toolkit already provides this and a handful of utilities. Let's load up the latest OpenFF small molecule force field, OpenFF 2.2.1, and inspect its contents! This force field shares the code name "Sage" with all other force fields with the same major version number (2.x.x).
 
 
 ```python
@@ -49,7 +49,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fcfc6bd7aa0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7f2f3a070da0>
 
 
 
@@ -62,70 +62,33 @@ Each section of a force field is stored in memory within `ParameterHandler` obje
 print(sage.registered_parameter_handlers)
 
 vdw_handler = sage["vdW"]
-print(f"vdw_handler cutoff: {vdw_handler.cutoff}")
-print(f"vdw_handler combining rules: {vdw_handler.combining_rules}")
-print(f"vdw_handler scale14: {vdw_handler.scale14}")
-print(f"vdw_handler parameters: {vdw_handler.parameters}")
+vdw_handler
 ```
 
     ['Constraints', 'Bonds', 'Angles', 'ProperTorsions', 'ImproperTorsions', 'vdW', 'Electrostatics', 'LibraryCharges', 'ToolkitAM1BCC']
-    vdw_handler cutoff: 9.0 angstrom
-    vdw_handler combining rules: Lorentz-Berthelot
-    vdw_handler scale14: 0.5
-    vdw_handler parameters: [<vdWType with smirks: [#1:1]  epsilon: 0.0157 kilocalorie / mole  id: n1  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]  epsilon: 0.01577948280971 kilocalorie / mole  id: n2  rmin_half: 1.48419980825 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]-[#7,#8,#9,#16,#17,#35]  epsilon: 0.01640924602775 kilocalorie / mole  id: n3  rmin_half: 1.449786411317 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n4  rmin_half: 1.287 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])(-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n5  rmin_half: 1.187 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]~[*+1,*+2]  epsilon: 0.0157 kilocalorie / mole  id: n6  rmin_half: 1.1 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]  epsilon: 0.01561134320353 kilocalorie / mole  id: n7  rmin_half: 1.443812569645 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01310699839698 kilocalorie / mole  id: n8  rmin_half: 1.377051329051 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3](~[#7,#8,#9,#16,#17,#35])~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01479744504464 kilocalorie / mole  id: n9  rmin_half: 1.370482808197 angstrom  >, <vdWType with smirks: [#1:1]-[#6X2]  epsilon: 0.015 kilocalorie / mole  id: n10  rmin_half: 1.459 angstrom  >, <vdWType with smirks: [#1:1]-[#7]  epsilon: 0.01409081474669 kilocalorie / mole  id: n11  rmin_half: 0.6192778454102 angstrom  >, <vdWType with smirks: [#1:1]-[#8]  epsilon: 1.232599966667e-05 kilocalorie / mole  id: n12  rmin_half: 0.2999999999997 angstrom  >, <vdWType with smirks: [#1:1]-[#16]  epsilon: 0.0157 kilocalorie / mole  id: n13  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#6:1]  epsilon: 0.0868793154488 kilocalorie / mole  id: n14  rmin_half: 1.953447017081 angstrom  >, <vdWType with smirks: [#6X2:1]  epsilon: 0.21 kilocalorie / mole  id: n15  rmin_half: 1.908 angstrom  >, <vdWType with smirks: [#6X4:1]  epsilon: 0.1088406109251 kilocalorie / mole  id: n16  rmin_half: 1.896698071741 angstrom  >, <vdWType with smirks: [#8:1]  epsilon: 0.2102061007896 kilocalorie / mole  id: n17  rmin_half: 1.706036917087 angstrom  >, <vdWType with smirks: [#8X2H0+0:1]  epsilon: 0.1684651402602 kilocalorie / mole  id: n18  rmin_half: 1.697783613804 angstrom  >, <vdWType with smirks: [#8X2H1+0:1]  epsilon: 0.2094735324129 kilocalorie / mole  id: n19  rmin_half: 1.682099169199 angstrom  >, <vdWType with smirks: [#7:1]  epsilon: 0.1676915150424 kilocalorie / mole  id: n20  rmin_half: 1.799798315098 angstrom  >, <vdWType with smirks: [#16:1]  epsilon: 0.25 kilocalorie / mole  id: n21  rmin_half: 2.0 angstrom  >, <vdWType with smirks: [#15:1]  epsilon: 0.2 kilocalorie / mole  id: n22  rmin_half: 2.1 angstrom  >, <vdWType with smirks: [#9:1]  epsilon: 0.061 kilocalorie / mole  id: n23  rmin_half: 1.75 angstrom  >, <vdWType with smirks: [#17:1]  epsilon: 0.2656001046527 kilocalorie / mole  id: n24  rmin_half: 1.85628721824 angstrom  >, <vdWType with smirks: [#35:1]  epsilon: 0.3218986365974 kilocalorie / mole  id: n25  rmin_half: 1.969806594135 angstrom  >, <vdWType with smirks: [#53:1]  epsilon: 0.4 kilocalorie / mole  id: n26  rmin_half: 2.35 angstrom  >, <vdWType with smirks: [#3+1:1]  epsilon: 0.0279896 kilocalorie / mole  id: n27  rmin_half: 1.025 angstrom  >, <vdWType with smirks: [#11+1:1]  epsilon: 0.0874393 kilocalorie / mole  id: n28  rmin_half: 1.369 angstrom  >, <vdWType with smirks: [#19+1:1]  epsilon: 0.1936829 kilocalorie / mole  id: n29  rmin_half: 1.705 angstrom  >, <vdWType with smirks: [#37+1:1]  epsilon: 0.3278219 kilocalorie / mole  id: n30  rmin_half: 1.813 angstrom  >, <vdWType with smirks: [#55+1:1]  epsilon: 0.4065394 kilocalorie / mole  id: n31  rmin_half: 1.976 angstrom  >, <vdWType with smirks: [#9X0-1:1]  epsilon: 0.003364 kilocalorie / mole  id: n32  rmin_half: 2.303 angstrom  >, <vdWType with smirks: [#17X0-1:1]  epsilon: 0.035591 kilocalorie / mole  id: n33  rmin_half: 2.513 angstrom  >, <vdWType with smirks: [#35X0-1:1]  epsilon: 0.0586554 kilocalorie / mole  id: n34  rmin_half: 2.608 angstrom  >, <vdWType with smirks: [#53X0-1:1]  epsilon: 0.0536816 kilocalorie / mole  id: n35  rmin_half: 2.86 angstrom  >, <vdWType with smirks: [#1]-[#8X2H2+0:1]-[#1]  epsilon: 0.1521 kilocalorie / mole  id: n-tip3p-O  sigma: 3.1507 angstrom  >, <vdWType with smirks: [#1:1]-[#8X2H2+0]-[#1]  epsilon: 0.0 kilocalorie / mole  id: n-tip3p-H  sigma: 1 angstrom  >, <vdWType with smirks: [#54:1]  epsilon: 0.561 kilocalorie / mole  id: n36  sigma: 4.363 angstrom  >]
+
+
+
+
+
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7f2f381b4cb0>
+
 
 
 Each `ParameterHandler` in turn stores a list of parameters in its `.parameters` attribute, in addition to some information specific to its portion of the potential energy function:
 
 
 ```python
-(vdw_handler.cutoff, vdw_handler.combining_rules, vdw_handler.scale14)
-
-vdw_handler.parameters
+print(f"vdw_handler cutoff: {vdw_handler.cutoff}")
+print(f"vdw_handler combining rules: {vdw_handler.combining_rules}")
+print(f"vdw_handler scale14: {vdw_handler.scale14}")
+print(f"vdw_handler parameters: {vdw_handler.parameters}")
 ```
 
-
-
-
-    [<vdWType with smirks: [#1:1]  epsilon: 0.0157 kilocalorie / mole  id: n1  rmin_half: 0.6 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X4]  epsilon: 0.01577948280971 kilocalorie / mole  id: n2  rmin_half: 1.48419980825 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X4]-[#7,#8,#9,#16,#17,#35]  epsilon: 0.01640924602775 kilocalorie / mole  id: n3  rmin_half: 1.449786411317 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n4  rmin_half: 1.287 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])(-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n5  rmin_half: 1.187 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X4]~[*+1,*+2]  epsilon: 0.0157 kilocalorie / mole  id: n6  rmin_half: 1.1 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X3]  epsilon: 0.01561134320353 kilocalorie / mole  id: n7  rmin_half: 1.443812569645 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X3]~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01310699839698 kilocalorie / mole  id: n8  rmin_half: 1.377051329051 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X3](~[#7,#8,#9,#16,#17,#35])~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01479744504464 kilocalorie / mole  id: n9  rmin_half: 1.370482808197 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#6X2]  epsilon: 0.015 kilocalorie / mole  id: n10  rmin_half: 1.459 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#7]  epsilon: 0.01409081474669 kilocalorie / mole  id: n11  rmin_half: 0.6192778454102 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#8]  epsilon: 1.232599966667e-05 kilocalorie / mole  id: n12  rmin_half: 0.2999999999997 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#16]  epsilon: 0.0157 kilocalorie / mole  id: n13  rmin_half: 0.6 angstrom  >,
-     <vdWType with smirks: [#6:1]  epsilon: 0.0868793154488 kilocalorie / mole  id: n14  rmin_half: 1.953447017081 angstrom  >,
-     <vdWType with smirks: [#6X2:1]  epsilon: 0.21 kilocalorie / mole  id: n15  rmin_half: 1.908 angstrom  >,
-     <vdWType with smirks: [#6X4:1]  epsilon: 0.1088406109251 kilocalorie / mole  id: n16  rmin_half: 1.896698071741 angstrom  >,
-     <vdWType with smirks: [#8:1]  epsilon: 0.2102061007896 kilocalorie / mole  id: n17  rmin_half: 1.706036917087 angstrom  >,
-     <vdWType with smirks: [#8X2H0+0:1]  epsilon: 0.1684651402602 kilocalorie / mole  id: n18  rmin_half: 1.697783613804 angstrom  >,
-     <vdWType with smirks: [#8X2H1+0:1]  epsilon: 0.2094735324129 kilocalorie / mole  id: n19  rmin_half: 1.682099169199 angstrom  >,
-     <vdWType with smirks: [#7:1]  epsilon: 0.1676915150424 kilocalorie / mole  id: n20  rmin_half: 1.799798315098 angstrom  >,
-     <vdWType with smirks: [#16:1]  epsilon: 0.25 kilocalorie / mole  id: n21  rmin_half: 2.0 angstrom  >,
-     <vdWType with smirks: [#15:1]  epsilon: 0.2 kilocalorie / mole  id: n22  rmin_half: 2.1 angstrom  >,
-     <vdWType with smirks: [#9:1]  epsilon: 0.061 kilocalorie / mole  id: n23  rmin_half: 1.75 angstrom  >,
-     <vdWType with smirks: [#17:1]  epsilon: 0.2656001046527 kilocalorie / mole  id: n24  rmin_half: 1.85628721824 angstrom  >,
-     <vdWType with smirks: [#35:1]  epsilon: 0.3218986365974 kilocalorie / mole  id: n25  rmin_half: 1.969806594135 angstrom  >,
-     <vdWType with smirks: [#53:1]  epsilon: 0.4 kilocalorie / mole  id: n26  rmin_half: 2.35 angstrom  >,
-     <vdWType with smirks: [#3+1:1]  epsilon: 0.0279896 kilocalorie / mole  id: n27  rmin_half: 1.025 angstrom  >,
-     <vdWType with smirks: [#11+1:1]  epsilon: 0.0874393 kilocalorie / mole  id: n28  rmin_half: 1.369 angstrom  >,
-     <vdWType with smirks: [#19+1:1]  epsilon: 0.1936829 kilocalorie / mole  id: n29  rmin_half: 1.705 angstrom  >,
-     <vdWType with smirks: [#37+1:1]  epsilon: 0.3278219 kilocalorie / mole  id: n30  rmin_half: 1.813 angstrom  >,
-     <vdWType with smirks: [#55+1:1]  epsilon: 0.4065394 kilocalorie / mole  id: n31  rmin_half: 1.976 angstrom  >,
-     <vdWType with smirks: [#9X0-1:1]  epsilon: 0.003364 kilocalorie / mole  id: n32  rmin_half: 2.303 angstrom  >,
-     <vdWType with smirks: [#17X0-1:1]  epsilon: 0.035591 kilocalorie / mole  id: n33  rmin_half: 2.513 angstrom  >,
-     <vdWType with smirks: [#35X0-1:1]  epsilon: 0.0586554 kilocalorie / mole  id: n34  rmin_half: 2.608 angstrom  >,
-     <vdWType with smirks: [#53X0-1:1]  epsilon: 0.0536816 kilocalorie / mole  id: n35  rmin_half: 2.86 angstrom  >,
-     <vdWType with smirks: [#1]-[#8X2H2+0:1]-[#1]  epsilon: 0.1521 kilocalorie / mole  id: n-tip3p-O  sigma: 3.1507 angstrom  >,
-     <vdWType with smirks: [#1:1]-[#8X2H2+0]-[#1]  epsilon: 0.0 kilocalorie / mole  id: n-tip3p-H  sigma: 1 angstrom  >,
-     <vdWType with smirks: [#54:1]  epsilon: 0.561 kilocalorie / mole  id: n36  sigma: 4.363 angstrom  >]
-
+    vdw_handler cutoff: 9.0 angstrom
+    vdw_handler combining rules: Lorentz-Berthelot
+    vdw_handler scale14: 0.5
+    vdw_handler parameters: [<vdWType with smirks: [#1:1]  epsilon: 0.0157 kilocalorie / mole  id: n1  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]  epsilon: 0.01577948280971 kilocalorie / mole  id: n2  rmin_half: 1.48419980825 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]-[#7,#8,#9,#16,#17,#35]  epsilon: 0.01640924602775 kilocalorie / mole  id: n3  rmin_half: 1.449786411317 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n4  rmin_half: 1.287 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4](-[#7,#8,#9,#16,#17,#35])(-[#7,#8,#9,#16,#17,#35])-[#7,#8,#9,#16,#17,#35]  epsilon: 0.0157 kilocalorie / mole  id: n5  rmin_half: 1.187 angstrom  >, <vdWType with smirks: [#1:1]-[#6X4]~[*+1,*+2]  epsilon: 0.0157 kilocalorie / mole  id: n6  rmin_half: 1.1 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]  epsilon: 0.01561134320353 kilocalorie / mole  id: n7  rmin_half: 1.443812569645 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3]~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01310699839698 kilocalorie / mole  id: n8  rmin_half: 1.377051329051 angstrom  >, <vdWType with smirks: [#1:1]-[#6X3](~[#7,#8,#9,#16,#17,#35])~[#7,#8,#9,#16,#17,#35]  epsilon: 0.01479744504464 kilocalorie / mole  id: n9  rmin_half: 1.370482808197 angstrom  >, <vdWType with smirks: [#1:1]-[#6X2]  epsilon: 0.015 kilocalorie / mole  id: n10  rmin_half: 1.459 angstrom  >, <vdWType with smirks: [#1:1]-[#7]  epsilon: 0.01409081474669 kilocalorie / mole  id: n11  rmin_half: 0.6192778454102 angstrom  >, <vdWType with smirks: [#1:1]-[#8]  epsilon: 1.232599966667e-05 kilocalorie / mole  id: n12  rmin_half: 0.2999999999997 angstrom  >, <vdWType with smirks: [#1:1]-[#16]  epsilon: 0.0157 kilocalorie / mole  id: n13  rmin_half: 0.6 angstrom  >, <vdWType with smirks: [#6:1]  epsilon: 0.0868793154488 kilocalorie / mole  id: n14  rmin_half: 1.953447017081 angstrom  >, <vdWType with smirks: [#6X2:1]  epsilon: 0.21 kilocalorie / mole  id: n15  rmin_half: 1.908 angstrom  >, <vdWType with smirks: [#6X4:1]  epsilon: 0.1088406109251 kilocalorie / mole  id: n16  rmin_half: 1.896698071741 angstrom  >, <vdWType with smirks: [#8:1]  epsilon: 0.2102061007896 kilocalorie / mole  id: n17  rmin_half: 1.706036917087 angstrom  >, <vdWType with smirks: [#8X2H0+0:1]  epsilon: 0.1684651402602 kilocalorie / mole  id: n18  rmin_half: 1.697783613804 angstrom  >, <vdWType with smirks: [#8X2H1+0:1]  epsilon: 0.2094735324129 kilocalorie / mole  id: n19  rmin_half: 1.682099169199 angstrom  >, <vdWType with smirks: [#7:1]  epsilon: 0.1676915150424 kilocalorie / mole  id: n20  rmin_half: 1.799798315098 angstrom  >, <vdWType with smirks: [#16:1]  epsilon: 0.25 kilocalorie / mole  id: n21  rmin_half: 2.0 angstrom  >, <vdWType with smirks: [#15:1]  epsilon: 0.2 kilocalorie / mole  id: n22  rmin_half: 2.1 angstrom  >, <vdWType with smirks: [#9:1]  epsilon: 0.061 kilocalorie / mole  id: n23  rmin_half: 1.75 angstrom  >, <vdWType with smirks: [#17:1]  epsilon: 0.2656001046527 kilocalorie / mole  id: n24  rmin_half: 1.85628721824 angstrom  >, <vdWType with smirks: [#35:1]  epsilon: 0.3218986365974 kilocalorie / mole  id: n25  rmin_half: 1.969806594135 angstrom  >, <vdWType with smirks: [#53:1]  epsilon: 0.4 kilocalorie / mole  id: n26  rmin_half: 2.35 angstrom  >, <vdWType with smirks: [#3+1:1]  epsilon: 0.0279896 kilocalorie / mole  id: n27  rmin_half: 1.025 angstrom  >, <vdWType with smirks: [#11+1:1]  epsilon: 0.0874393 kilocalorie / mole  id: n28  rmin_half: 1.369 angstrom  >, <vdWType with smirks: [#19+1:1]  epsilon: 0.1936829 kilocalorie / mole  id: n29  rmin_half: 1.705 angstrom  >, <vdWType with smirks: [#37+1:1]  epsilon: 0.3278219 kilocalorie / mole  id: n30  rmin_half: 1.813 angstrom  >, <vdWType with smirks: [#55+1:1]  epsilon: 0.4065394 kilocalorie / mole  id: n31  rmin_half: 1.976 angstrom  >, <vdWType with smirks: [#9X0-1:1]  epsilon: 0.003364 kilocalorie / mole  id: n32  rmin_half: 2.303 angstrom  >, <vdWType with smirks: [#17X0-1:1]  epsilon: 0.035591 kilocalorie / mole  id: n33  rmin_half: 2.513 angstrom  >, <vdWType with smirks: [#35X0-1:1]  epsilon: 0.0586554 kilocalorie / mole  id: n34  rmin_half: 2.608 angstrom  >, <vdWType with smirks: [#53X0-1:1]  epsilon: 0.0536816 kilocalorie / mole  id: n35  rmin_half: 2.86 angstrom  >, <vdWType with smirks: [#1]-[#8X2H2+0:1]-[#1]  epsilon: 0.1521 kilocalorie / mole  id: n-tip3p-O  sigma: 3.1507 angstrom  >, <vdWType with smirks: [#1:1]-[#8X2H2+0]-[#1]  epsilon: 0.0 kilocalorie / mole  id: n-tip3p-H  sigma: 1 angstrom  >, <vdWType with smirks: [#54:1]  epsilon: 0.561 kilocalorie / mole  id: n36  sigma: 4.363 angstrom  >]
 
 
 From here you can inspect all the way down to individual parameters, which are stored in custom objects (in this case, `vdWType`). Let's look at the type with id `n16`, which looks like a generic carbon with four bonded neighbors:
@@ -210,12 +173,11 @@ There is no specific release date planned for Rosemary, but it may be available 
 
 TODO: UPDAATE AND MENTION 2.3
 
-Another release, possibly in the Rosemary line, is intended to include graph-convolutional neutral network (GCNN)-based charge assignment using [NAGL](https://github.com/openforcefield/openff-nagl). Details are still being worked out, but it is expected to approximately reproduce AM1-BCC (or some variant) without the typical $O(N^3)$ scaling, making it suitable for large (>> 100 atoms) molecules).
+The Sage 2.3.0 release is expected imminently and will include graph-convolutional neutral network (GCNN)-based charge assignment using [NAGL](https://github.com/openforcefield/openff-nagl) by default. The charge model is trained to reproduce AM1-BCC charges without the typical $O(N^3)$ scaling, making it suitable for large (>> 100 atoms) molecules). The [second release candidate](https://github.com/openforcefield/openff-forcefields/blob/main/openforcefields/offxml/openff-2.3.0-rc2.offxml) (which may or may not become the final version) is already available for you to try!
 
 ### Virtual sites
 
 Another release from OpenFF may include some virtual site parameters with off-center charges. No release date is planned, but the most of the supporting infrastructure is currently in place and some early studies have shown promise for better representing electrostatics of chemistries such as halogens and aromatic nitrogens.
-
 
 ## From you!
 
@@ -247,7 +209,7 @@ molecule
 
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_12_2.svg)
+![svg](output_12_2.svg)
     
 
 
@@ -279,7 +241,7 @@ topology = molecule.to_topology()
 topology = Topology.from_molecules(molecules=[molecule])
 ```
 
-From here we can add as many other molecules as we wish. For example, we can create a water molecule and it to a topology 100 times.
+From here we can add as many other molecules as we wish. For example, we can create a water molecule and add it to a topology 100 times.
 
 
 ```python
@@ -300,7 +262,7 @@ topology_with_water.n_molecules
 
 
 <div class="alert alert-info" style="max-width: 500px; margin-left: auto; margin-right: auto;">
-    ℹ️ Positions are <i>optional</i> in <code>Molecule</code> (any by extension <code>Topology</code>) objects, so visualizing this topology in 3D doesn't make sense. Using it in a simulation would requiring assigning positions using a tool like Packmol or PDBFixer. Running simulations will be discussed this afternoon.
+    ℹ️ Positions are <i>optional</i> in <code>Molecule</code> (any by extension <code>Topology</code>) objects, so visualizing this topology in 3D doesn't make sense. Using it in a simulation would requiring assigning positions using a tool like Packmol or PDBFixer. Running simulations will be discussed later.
 </div>
 
 Keeping in mind that topologies are just collections of molecules, we can look up individual molecules by index in the `Topology.molecule()` function.
@@ -320,19 +282,15 @@ topology_with_water.molecule(0), topology_with_water.molecule(1), topology_with_
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> Build a <code>Topology</code> containing an MCL-1 ligand. Create the <code>Molecule</code> from an SDF file  (take a look at the docstring of <code>Molecule</code> to see how this can be done). Also, see <a href="https://docs.openforcefield.org/projects/toolkit/en/stable/users/molecule_cookbook.html">Molecule cookbook</a> for all the ways to make a <code>Molecule</code>. The crystallographic MCL-1 ligand from PDB ID 6o6f is provided at <code>../structures/606f_ligand.sdf</code>.
+    ✏️ <b>Exercise:</b> Build a <code>Topology</code> containing an MCL-1 ligand. Create the <code>Molecule</code> from an SDF file  (take a look at the docstring of <code>Molecule</code> to see how this can be done). Also, see <a href="https://docs.openforcefield.org/projects/toolkit/en/stable/users/molecule_cookbook.html">Molecule cookbook</a> for all the ways to make a <code>Molecule</code>. The crystallographic MCL-1 ligand from PDB ID 6o6f is provided at <code>../structures/606f_ligand.sdf</code>. Note that you don't need to use <code>get_data_file_path</code> as we already know the path.
 </div>
 
 
 
 ```python
 # Inspect the Molecule docstring
-Molecule?
-```
-
-
-```python
-# Build your topology here...
+mcl1_mol = Molecule("../structures/6o6f_ligand.sdf")
+top = mcl1_mol.to_topology()
 ```
 
 We will cover creating a topology for a protein-ligand complex this afternoon.
@@ -482,7 +440,7 @@ SVG(mol_with_atom_index(molecule))
 
 
     
-![svg](small_molecule_parameterisation_files/small_molecule_parameterisation_41_0.svg)
+![svg](output_40_0.svg)
     
 
 
@@ -542,8 +500,27 @@ So our C=C bond (indices (1,2)) has a force constant of 904 kcal mol<sup>-1</sup
 
 
 ```python
-# Inspect the other bonded parameters...
+# For example, the ImproperTorsions collection:
+collection = interchange.collections["ImproperTorsions"]
+collection.key_map
+
+# These enforce planarity around the double bond and carboxylate group
 ```
+
+
+
+
+    {ImproperTorsionKey with atom indices (1, 0, 2, 9), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (1, 2, 9, 0), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (1, 9, 0, 2), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (2, 1, 3, 10), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (2, 3, 10, 1), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (2, 10, 1, 3), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[*:3])~[*:4]', mult 0,
+     ImproperTorsionKey with atom indices (3, 2, 4, 5), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[#8X1:3])~[#8:4]', mult 0,
+     ImproperTorsionKey with atom indices (3, 4, 5, 2), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[#8X1:3])~[#8:4]', mult 0,
+     ImproperTorsionKey with atom indices (3, 5, 2, 4), mult 0: PotentialKey associated with handler 'ImproperTorsions' with id '[*:1]~[#6X3:2](~[#8X1:3])~[#8:4]', mult 0}
+
+
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
     ✏️ <b>Exercise:</b> Change the molecule from the anion to the neutral form by adding a hydrogen to the SMILES. How does this affect the bond strengths of the two carboxyl oxygens?
@@ -551,9 +528,35 @@ So our C=C bond (indices (1,2)) has a force constant of 904 kcal mol<sup>-1</sup
 
 
 ```python
-# Inspect the carboxyl oxygen bond parameters after making the molecule netural...
+bond1_indices, bond2_indices = (3,4), (3,5)
+smiles = {"anion": "C/C=C/C(=O)[O-]", "neutral": "C/C=C/C(=O)O"}
 
+for name, smiles in smiles.items():
+    print(f"\n{name} ({smiles}):")
+    molecule = Molecule.from_smiles(smiles)
+    topology = molecule.to_topology()
+    interchange = Interchange.from_smirnoff(
+        force_field=sage,
+        topology=topology,
+    )
+    collection = interchange.collections["Bonds"]
+    bond1 = collection[bond1_indices]
+    bond2 = collection[bond2_indices]
+    print(f"  Bond {bond1_indices}: {bond1}")
+    print(f"  Bond {bond2_indices}: {bond2}")
 ```
+
+    
+    anion (C/C=C/C(=O)[O-]):
+      Bond (3, 4): parameters={'k': <Quantity(1181.50884, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.26002549, 'angstrom')>} map_key=None
+      Bond (3, 5): parameters={'k': <Quantity(1181.50884, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.26002549, 'angstrom')>} map_key=None
+    
+    neutral (C/C=C/C(=O)O):
+
+
+      Bond (3, 4): parameters={'k': <Quantity(1523.99024, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.22481931, 'angstrom')>} map_key=None
+      Bond (3, 5): parameters={'k': <Quantity(693.059897, 'kilocalorie_per_mole / angstrom ** 2')>, 'length': <Quantity(1.36024439, 'angstrom')>} map_key=None
+
 
 Finally, `interchange.box` and `interchange.velocities` are `None`, although `interchange.positions` is populated because we passed a topology with a molecule that had a defined conformer, so `from_smirnoff` set atomic positions from this information:
 
@@ -630,9 +633,12 @@ interchange.to_amber(prefix="ligand")
 ! ls
 ```
 
-    ligand.inpcrd	       protein_ligand_complex_parameterisation_and_md.ipynb
-    ligand.prmtop	       small_molecule_parameterisation.ipynb
-    ligand_pointenergy.in  trajectory_gpu.dcd
+    complex.gro		 protein_ligand_complex_parameterisation_and_md.ipynb
+    complex.top		 small_molecule_parameterisation.ipynb
+    complex_pointenergy.mdp  topology.json
+    ligand.inpcrd		 trajectory.dcd
+    ligand.prmtop		 trajectory_gpu.dcd
+    ligand_pointenergy.in
 
 
 Here, we'll export to OpenMM and run a short simulation directly from the noteboook. We can create an OpenMM `Simulation` object from the `Interchange` and run for a specified wall clock time using `runForClockTime` (the simluation time will depend on how quickly it runs on your machine). We keep the volume ($V$), number of particles ($N$), and average temperature ($T$) (using the LangevinMiddleIntegrator) constant and the simulation corresponds to the $NVT$ ensemble.
@@ -686,11 +692,11 @@ visualise_traj(interchange.topology)
 ```
 
 
-    NGLWidget(max_frame=53)
+    NGLWidget(max_frame=49)
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
-    ✏️ <b>Exercise:</b> (Only complete this if you have time -- otherwise proceed to section 4.) Create an Interchange object for an MCL-1 ligand. Inspect the parameters assigned and run short simulation of the molecule in vacuum.
+    ✏️ <b>Exercise:</b> (Only complete this if you have time -- otherwise proceed to section 4.) Create an Interchange object for an MCL-1 ligand. Inspect the parameters assigned and run short simulation as above.
 </div>
 
 <a id="gnn_charges"></a>
@@ -739,8 +745,8 @@ molecule_am1bcc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 59.7 ms, sys: 2.68 ms, total: 62.4 ms
-    Wall time: 19.8 s
+    CPU times: user 64.1 ms, sys: 7.24 ms, total: 71.3 ms
+    Wall time: 22.6 s
 
 
 Now, let's try AshGC
@@ -755,8 +761,8 @@ molecule_ashgc.assign_partial_charges(
 )
 ```
 
-    CPU times: user 1.3 s, sys: 33.5 ms, total: 1.33 s
-    Wall time: 1.26 s
+    CPU times: user 1.13 s, sys: 32.9 ms, total: 1.17 s
+    Wall time: 1.1 s
 
 
 Finally, let's create an `Interchange` with our AshGC charges, making sure to specify `charge_from_molecules` so that we don't replace them with `AM1BCC` charges:
@@ -781,15 +787,40 @@ interchange = sage.create_interchange(
 
 ```python
 # Compare charges assigned with AM1-BCC and AshGC...
+import numpy as np
+print(f"AM1 BCC charges: {molecule_am1bcc.partial_charges}")
+print(f"AshGC charges:   {molecule_ashgc.partial_charges}")
+
+differences = molecule_am1bcc.partial_charges - molecule_ashgc.partial_charges
+differences_by_atom_index = {idx: diff.magnitude for idx, diff in enumerate(differences)}
+print(f"Differences by atom index: {differences_by_atom_index}")
+
+max_difference = np.max(np.abs(differences.magnitude))
+print(f"Max difference: {max_difference} e")
+
+mean_difference = np.mean(np.abs(differences.magnitude))
+print(f"Mean absolute difference: {mean_difference} e")
+
+# Get the atom index with the largest difference
+atom_index = np.argmax(np.abs(differences.magnitude))
+print(f"Largest absolute difference is for atom index {atom_index}, which is a {molecule_ashgc.atoms[atom_index].symbol} atom")
 ```
+
+    AM1 BCC charges: [-0.12740000000000004 -0.8283 -0.8283 -0.33690000000000003 -0.633 0.14839999999999998 0.19979999999999998 0.20379999999999998 -0.09940000000000004 -0.13500000000000004 -0.15200000000000002 -0.09040000000000004 -0.09040000000000004 -0.11100000000000004 -0.07100000000000004 -0.03410000000000003 -0.12800000000000003 -0.13800000000000004 -0.07840000000000004 0.9082 0.012399999999999965 0.04109999999999996 0.059599999999999966 -0.11570000000000004 -0.11560000000000004 -0.09030000000000005 -0.053300000000000035 -0.03870000000000003 0.04569999999999996 0.04569999999999996 0.056699999999999966 0.056699999999999966 0.03769999999999996 0.03769999999999996 0.039199999999999964 0.039199999999999964 0.14199999999999996 0.12199999999999996 0.049699999999999966 0.049699999999999966 0.049699999999999966 0.049699999999999966 0.15599999999999997 0.18099999999999997 0.047699999999999965 0.047699999999999965 0.13699999999999998 0.16099999999999998 0.04469999999999996 0.04469999999999996 0.08069999999999995] elementary_charge
+    AshGC charges:   [-0.10291757708524957 -0.8212745068046976 -0.8212745068046976 -0.3278780457947184 -0.656814920661204 0.13626032793784842 0.22055995190406547 0.2206000658299993 -0.09947414970134988 -0.14171894168590798 -0.17288624024128213 -0.09598572826122537 -0.09598569845890298 -0.0818095085594584 -0.1024471399757792 -0.04326643323635354 -0.12058025872444406 -0.08199206268524423 -0.07742916321491494 0.9052312495734762 0.027429900186903337 0.0331591638352941 0.0954736592795919 -0.10021315043901696 -0.1429999051067759 -0.07631889259552255 -0.09621359681820169 -0.03022590180968537 0.044725027921445226 0.044725027921445226 0.03946309262777076 0.03946309262777076 0.03401340270305381 0.03401340270305381 0.04491722309852347 0.04491722309852347 0.14514142000938163 0.11216316843295798 0.047582616153008794 0.047582616153008794 0.047582616153008794 0.047582616153008794 0.15584553504253135 0.13253731751704917 0.056406603249556875 0.056406603249556875 0.14515182101989493 0.1600255640771459 0.05733717704082236 0.05733717704082236 0.05607166612411246] elementary_charge
+    Differences by atom index: {0: np.float64(-0.024482422914750473), 1: np.float64(-0.007025493195302435), 2: np.float64(-0.007025493195302435), 3: np.float64(-0.009021954205281624), 4: np.float64(0.023814920661203942), 5: np.float64(0.012139672062151552), 6: np.float64(-0.020759951904065488), 7: np.float64(-0.016800065829999322), 8: np.float64(7.41497013498349e-05), 9: np.float64(0.006718941685907948), 10: np.float64(0.020886240241282106), 11: np.float64(0.005585728261225331), 12: np.float64(0.0055856984589029435), 13: np.float64(-0.029190491440541644), 14: np.float64(0.031447139975779165), 15: np.float64(0.009166433236353508), 16: np.float64(-0.007419741275555974), 17: np.float64(-0.05600793731475581), 18: np.float64(-0.0009708367850850969), 19: np.float64(0.0029687504265237807), 20: np.float64(-0.015029900186903372), 21: np.float64(0.00794083616470586), 22: np.float64(-0.03587365927959193), 23: np.float64(-0.015486849560983076), 24: np.float64(0.027399905106775868), 25: np.float64(-0.0139811074044775), 26: np.float64(0.04291359681820165), 27: np.float64(-0.008474098190314663), 28: np.float64(0.0009749720785547367), 29: np.float64(0.0009749720785547367), 30: np.float64(0.01723690737222921), 31: np.float64(0.01723690737222921), 32: np.float64(0.003686597296946155), 33: np.float64(0.003686597296946155), 34: np.float64(-0.005717223098523509), 35: np.float64(-0.005717223098523509), 36: np.float64(-0.003141420009381668), 37: np.float64(0.009836831567041973), 38: np.float64(0.002117383846991172), 39: np.float64(0.002117383846991172), 40: np.float64(0.002117383846991172), 41: np.float64(0.002117383846991172), 42: np.float64(0.0001544649574686252), 43: np.float64(0.0484626824829508), 44: np.float64(-0.00870660324955691), 45: np.float64(-0.00870660324955691), 46: np.float64(-0.00815182101989495), 47: np.float64(0.0009744359228540667), 48: np.float64(-0.0126371770408224), 49: np.float64(-0.0126371770408224), 50: np.float64(0.02462833387588749)}
+    Max difference: 0.05600793731475581 e
+    Mean absolute difference: 0.013057460803529108 e
+    Largest absolute difference is for atom index 17, which is a C atom
+
 
 <a id="summary"></a>
 ## 5. Conclusions
 
-* The `ForceField` class from the OpenFF Toolkit allows force fields to be easily loaded and inspected
+* The `ForceField` class from the OpenFF Toolkit allows force fields to be easily loaded and inspected.
 * The `Molecule` and `Topology` classes from the OpenFF Toolkit allow us to represent a chemical system, independently from the force field.
 * The `Interchange` class from OpenFF Interchange handles fully parameterised systems with all the information required to start a simulation. Exporting to the simluation engine of your choice is simple, and we can easily run a simulation with OpenMM without leaving the notebook!
-* Graph neural networks can provide fast and high-quality conformer-independent partial charges
+* Graph neural networks can provide fast and high-quality conformer-independent partial charges.
 
 <a id="further_materials"></a>
 ## 6. There's Lots More to OpenFF!
