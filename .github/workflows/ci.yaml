@@ -15,7 +15,7 @@ jobs:
     container: condaforge/mambaforge:latest
 
     steps:
-    - uses: actions/checkout@v5.0.1
+    - uses: actions/checkout@v6.0.0
 
     - name: Run CI
       # Ensure the step runs under bash so `pipefail` is supported in the shell flags
