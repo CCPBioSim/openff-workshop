@@ -55,4 +55,4 @@ Workshop Content Authors:
 
 ## Contact
 
-Please direct all questions and feedback to [Finlay Clark](mailto:charles.laughton@nottingham.ac.uk)
+Please direct all questions and feedback to [Finlay Clark](mailto:finlay.clark@newcastle.ac.uk) or [Danny Cole](mailto:daniel.cole@newcastle.ac.uk)
