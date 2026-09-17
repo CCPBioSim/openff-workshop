@@ -9,10 +9,18 @@ USER $NB_USER
 WORKDIR $HOME
 
 # Install workshop deps
-RUN conda install -c conda-forge "openff-toolkit-examples>=0.17.0" "openff-interchange>=0.4.7" MDAnalysis prolif py3dmol openbabel -y
+RUN conda install -y -c conda-forge \
+    conda-forge::openff-toolkit-examples=0.19.0 \
+    conda-forge::openff-interchange=0.5.4 \
+    conda-forge::packmol=21.2.1 \
+    conda-forge::ambertools=26.0 \
+    conda-forge::MDAnalysis=2.10.0 \
+    conda-forge::prolif=2.2.1 \
+    conda-forge::py3dmol=2.5.4 \
+    conda-forge::openbabel=3.2.1
 
-COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
-RUN bash /tmp/fix-nglview.sh
+#COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
+#RUN bash /tmp/fix-nglview.sh
 
 # Get workshop files and move them to jovyan directory.
 COPY --chown=1000:100 . .
