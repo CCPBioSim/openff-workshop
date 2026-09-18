@@ -9,7 +9,7 @@ USER $NB_USER
 WORKDIR $HOME
 
 # Install workshop deps
-RUN conda install -y -c conda-forge \
+RUN mamba install -y -c conda-forge \
     conda-forge::openff-toolkit-examples=0.19.0 \
     conda-forge::openff-interchange=0.5.4 \
     conda-forge::ambertools=26.3 \
