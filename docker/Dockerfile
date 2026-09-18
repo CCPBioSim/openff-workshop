@@ -10,9 +10,9 @@ WORKDIR $HOME
 
 # Install workshop deps
 RUN mamba install -y -c conda-forge \
-    conda-forge::openff-toolkit-examples=0.19.0 \
-    conda-forge::openff-interchange=0.5.4 \
-    conda-forge::ambertools=26.3 \
+    conda-forge::openff-toolkit-examples>=0.19.0 \
+    conda-forge::openff-interchange>=0.5.4 \
+    conda-forge::ambertools>=26.3 \
     conda-forge::MDAnalysis=2.10.0 \
     conda-forge::prolif=2.2.1 \
     conda-forge::py3dmol=2.5.4 \
