@@ -268,7 +268,7 @@ For example, we can write out GROMACS `complex.gro` and `complex.top` files with
 interchange.to_gromacs(prefix="complex")
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/interchange/components/mdconfig.py:502: UserWarning: Ambiguous failure while processing constraints. Constraining h-bonds as a stopgap.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/openff/interchange/components/mdconfig.py:504: UserWarning: Ambiguous failure while processing constraints. Constraining h-bonds as a stopgap.
       warnings.warn(
 
 
@@ -359,10 +359,10 @@ describe_state(
 )
 ```
 
-    Original state has energy 14441257.72 kJ/mol with maximum force 1367206715.93 kJ/(mol nm)
+    Original state has energy 14441273.68 kJ/mol with maximum force 1367208975.66 kJ/(mol nm)
 
 
-    Minimized state has energy -435737.31 kJ/mol with maximum force 2458.94 kJ/(mol nm)
+    Minimized state has energy -436658.5 kJ/mol with maximum force 2427.9 kJ/(mol nm)
 
 
 ### 4.3 Run a short simulation
@@ -422,7 +422,7 @@ view.add_representation("line", selection="protein")
 view
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
       warnings.warn("DCDReader currently makes independent timesteps"
 
 

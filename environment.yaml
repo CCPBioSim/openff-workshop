@@ -2,11 +2,14 @@ name: openff-env
 channels:
     - conda-forge
 dependencies:
+    - python >=3.13 # For JupyterHub compatibility
     - jupyterlab
     - openff-toolkit-examples>=0.19.0 # Need at least 0.17.0 for NAGL compat.
     - openff-interchange>=0.5.4 # Need at least 0.4.7 for NAGL compat.
-    - packmol # Needed to pack water box only
-    - ambertools # Needed for AM1-BCC charge assignment comparison only
+    # NOTE: packmol is not listed explicitly - ambertools >=23.6 bundles it and
+    # declares a conflict with the standalone packmol package. Listing both pins
+    # the solve back to ambertools 23.3, which has no Python 3.13 build.
+    - ambertools >=23.6  # Needed for AM1-BCC charge assignment comparison, and provides packmol
     - MDAnalysis
     - prolif
     - py3dmol # For 3D visualization of of interactions in prolif
