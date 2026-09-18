@@ -1,7 +1,7 @@
 # CCPBioSim OpenForcefield Workshop
 
 [![ci](https://github.com/ccpbiosim/openff-workshop/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/ccpbiosim/openff-workshop/actions/workflows/build.yaml)
-[![latest](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fccpbiosim.github.io%2Fworkshop.json&query=%24.containers.openff-workshop.latest&labelColor=grey&logo=github&logoColor=white&label=latest&color=purple)](https://github.com/ccpbiosim/openff-workshop/pkgs/container/openff-workshop) 
+[![latest](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fccpbiosim.github.io%2Fassets.json&query=%24.containers.openff-workshop.latest&labelColor=grey&logo=github&logoColor=white&label=latest&color=purple)](https://github.com/ccpbiosim/openff-workshop/pkgs/container/openff-workshop) 
 [![issues](https://img.shields.io/github/issues/ccpbiosim/openff-workshop?logo=github&labelColor=grey)](https://github.com/CCPBioSim/openff-workshop/issues)
 [![pr](https://img.shields.io/github/issues-pr/ccpbiosim/openff-workshop?logo=github&labelColor=grey)](https://github.com/CCPBioSim/openff-workshop/pulls)
 
