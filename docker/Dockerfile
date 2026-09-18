@@ -28,6 +28,5 @@ RUN rm -rf .gitignore .pre-commit-config.yaml environment.yaml LICENSE Makefile 
 # Copy updated lab workspace
 #COPY --chown=1000:100 docker/default-37a8.jupyterlab-workspace /home/jovyan/.jupyter/lab/workspaces/default-37a8.jupyterlab-workspace
 
-
 # Always finish with non-root user as a precaution.
 USER $NB_USER
