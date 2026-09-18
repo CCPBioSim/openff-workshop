@@ -95,7 +95,7 @@ view
     
 
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
       warnings.warn("DCDReader currently makes independent timesteps"
 
 
@@ -125,7 +125,7 @@ sage
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7fd2f594f0e0>
+    <openff.toolkit.typing.engines.smirnoff.forcefield.ForceField at 0x7ff591bf1e50>
 
 
 
@@ -147,7 +147,7 @@ vdw_handler
 
 
 
-    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7fd2f3a83860>
+    <openff.toolkit.typing.engines.smirnoff.parameters.vdWHandler at 0x7ff591bf2710>
 
 
 
@@ -632,17 +632,17 @@ interchange.positions, interchange.box, interchange.velocities
 
 
 
-    (<Quantity([[-0.16821799 -0.03794025  0.03709638]
-      [-0.02378201 -0.04651179 -0.00172715]
-      [ 0.0561313   0.05861728  0.00378908]
-      [ 0.19664568  0.04255535 -0.03587769]
-      [ 0.23981888 -0.0690374  -0.07427202]
-      [ 0.28572655  0.14903119 -0.0323602 ]
-      [-0.18612651  0.04797384  0.10269671]
-      [-0.22682862 -0.01993749 -0.05638409]
-      [-0.20246617 -0.13416296  0.08030926]
-      [ 0.01374343 -0.14184959 -0.03469218]
-      [ 0.01535547  0.15126182  0.03692091]], 'nanometer')>,
+    (<Quantity([[-0.16884651 -0.03204099  0.02797506]
+      [-0.02695262 -0.04551754 -0.01496804]
+      [ 0.05777792  0.05074697  0.01721889]
+      [ 0.19690544  0.03719656 -0.02507113]
+      [ 0.23595445 -0.06303954 -0.09039396]
+      [ 0.29175033  0.13419756  0.00498716]
+      [-0.1829386   0.05336654  0.09439656]
+      [-0.23077479 -0.01166554 -0.06346681]
+      [-0.20531354 -0.1285518   0.07293682]
+      [ 0.00522258 -0.13138426 -0.0706145 ]
+      [ 0.02721534  0.13669204  0.07249894]], 'nanometer')>,
      None,
      None)
 
@@ -697,9 +697,9 @@ At this point, we could easily export input files for our simulation engine of c
 interchange.to_amber(prefix="ligand")
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/interchange/components/mdconfig.py:502: UserWarning: Ambiguous failure while processing constraints. Constraining h-bonds as a stopgap.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/openff/interchange/components/mdconfig.py:504: UserWarning: Ambiguous failure while processing constraints. Constraining h-bonds as a stopgap.
       warnings.warn(
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/openff/interchange/components/mdconfig.py:432: SwitchingFunctionNotImplementedWarning: A switching distance 8.0 angstrom was specified by the force field, but Amber does not implement a switching function. Using a hard cut-off instead. Non-bonded interactions will be affected.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/openff/interchange/components/mdconfig.py:434: SwitchingFunctionNotImplementedWarning: A switching distance 8.0 angstrom was specified by the force field, but Amber does not implement a switching function. Using a hard cut-off instead. Non-bonded interactions will be affected.
       warnings.warn(
 
 
@@ -766,7 +766,7 @@ run_openmm(interchange)
 visualise_traj(interchange.topology)
 ```
 
-    /opt/conda/envs/openff-env/lib/python3.12/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
+    /opt/conda/envs/openff-env/lib/python3.14/site-packages/MDAnalysis/coordinates/DCD.py:171: DeprecationWarning: DCDReader currently makes independent timesteps by copying self.ts while other readers update self.ts inplace. This behavior will be changed in 3.0 to be the same as other readers. Read more at https://github.com/MDAnalysis/mdanalysis/issues/3889 to learn if this change in behavior might affect you.
       warnings.warn("DCDReader currently makes independent timesteps"
 
 
@@ -811,8 +811,8 @@ sage221 = ForceField("openff-2.2.1.offxml")
 interchange_sage221 = Interchange.from_smirnoff(force_field=sage221, topology=molecule.to_topology())
 ```
 
-    CPU times: user 318 ms, sys: 1.66 ms, total: 319 ms
-    Wall time: 30.8 s
+    CPU times: user 245 ms, sys: 6.57 ms, total: 252 ms
+    Wall time: 14.9 s
 
 
 Note that repeating these cells will show much faster assignment as partial charges are cached for a given molecule and charge method.
@@ -826,8 +826,8 @@ sage230 = ForceField("openff-2.3.0.offxml")
 interchange_sage230 = Interchange.from_smirnoff(force_field=sage230, topology=molecule.to_topology())
 ```
 
-    CPU times: user 1.84 s, sys: 70.3 ms, total: 1.91 s
-    Wall time: 1.56 s
+    CPU times: user 1.29 s, sys: 20.6 ms, total: 1.31 s
+    Wall time: 1.25 s
 
 
 <div class="alert alert-success" style="max-width: 500px; margin-left: auto; margin-right: auto; border-left: 6px solid #5cb85c; background-color: #f1fff1;">
