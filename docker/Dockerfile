@@ -18,8 +18,8 @@ RUN mamba install -y -c conda-forge \
     conda-forge::py3dmol=2.5.4 \
     conda-forge::openbabel=3.2.1
 
-#COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
-#RUN bash /tmp/fix-nglview.sh
+COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
+RUN bash /tmp/fix-nglview.sh
 
 # Get workshop files and move them to jovyan directory.
 COPY --chown=1000:100 . .
