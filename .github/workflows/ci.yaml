@@ -12,10 +12,10 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
-    container: condaforge/mambaforge:latest
+    container: condaforge/mambaforge:latest@sha256:050753d138b6708128c9bb45055a9d943f06363f32f63a96f7dd5f304ada52a6
 
     steps:
-    - uses: actions/checkout@v7.0.1
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Run CI
       # Ensure the step runs under bash so `pipefail` is supported in the shell flags
