@@ -16,6 +16,7 @@ RUN mamba install -y -c conda-forge \
     conda-forge::MDAnalysis=2.10.0 \
     conda-forge::prolif=2.2.1 \
     conda-forge::py3dmol=2.5.4 \
+    conda-forge::rdkit=2024.09.6 \
     conda-forge::openbabel=3.2.1
 
 COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
