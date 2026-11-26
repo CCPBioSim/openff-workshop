@@ -15,7 +15,7 @@ RUN mamba install -y -c conda-forge \
     conda-forge::ambertools>=26.3 \
     conda-forge::MDAnalysis=2.11.0 \
     conda-forge::prolif=2.2.3 \
-    conda-forge::py3dmol=2.5.4 \
+    conda-forge::py3dmol=3.0.0 \
     conda-forge::rdkit=2024.09.6 \
     conda-forge::openbabel=3.2.1
 
